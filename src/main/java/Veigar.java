@@ -13,7 +13,8 @@ public class Veigar {
         UNMARK,
         TODO,
         DEADLINE,
-        EVENT
+        EVENT,
+        DELETE
     }
 
     public static void texts(COMMAND command, String whole) throws VeigarException {
@@ -28,7 +29,7 @@ public class Veigar {
             case LIST: {
                 System.out.println("    Suffering awaits!");
                 if (storage.isEmpty()) {
-                    System.out.println("    DON'T DEAD OPEN INSIDE");
+                    System.out.println("    DON'T DEAD OPEN INSIDE LIST IS 0");
                     break;
                 }
                 for (int i = 0; i < storage.size(); i++) {
@@ -83,8 +84,18 @@ public class Veigar {
                 storage.add(new Deadline(parts[0], parts[1]));
                 break;
             }
+            case DELETE: {
+                int n = Integer.parseInt(whole);
+                if (n > storage.size() + 1) {
+                    throw new VeigarException("Your commands are wrong");
+                }
+                System.out.println("    I have deleted this task:\n    " + storage.get(n-1));
+                storage.remove(n-1);
+
+            }
         }
-        if (command == COMMAND.TODO || command == COMMAND.EVENT || command == COMMAND.DEADLINE) {
+        if (command == COMMAND.TODO || command == COMMAND.EVENT
+                || command == COMMAND.DEADLINE || command == COMMAND.DELETE) {
             System.out.println("    Now you have " + storage.size() + " tasks in the list");
         }
     }
