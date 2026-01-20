@@ -1,13 +1,17 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 public class Veigar {
+    static List<String> storage = new ArrayList<String>();
     static boolean active = true;
     enum COMMAND {
         BYE,
         LIST,
         BLAH
     }
+
     public static void texts(COMMAND command){
-        System.out.println(command.name().toLowerCase());
+        //System.out.println(command.name().toLowerCase());
         switch (command) {
             case BYE:
                 //exit
@@ -17,9 +21,23 @@ public class Veigar {
             case BLAH:
 
             case LIST:
-                return;
+                for (int i = 0; i < storage.size(); i ++) {
+                    System.out.println((i+ 1) + ". " + storage.get(i));
+                }
         }
 
+    }
+
+    public static boolean isCommand(String value) {
+        if (value == null) {
+            return false;
+        }
+        try {
+            COMMAND.valueOf(value);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 
     public static void main(String[] args){
@@ -28,11 +46,18 @@ public class Veigar {
 
         Scanner scanner = new Scanner(System.in);
         while (active) {
-            COMMAND c = COMMAND.valueOf(scanner.nextLine().toUpperCase());
-            texts(c);
-
+            String s = scanner.nextLine();
+            if (isCommand(s.toUpperCase())) {
+                COMMAND c = COMMAND.valueOf(s.toUpperCase());
+                texts(c);
+            }
+            else {
+                storage.add(s);
+                System.out.println("added: " + s);
+            }
         }
     }
+
 }
 
 
