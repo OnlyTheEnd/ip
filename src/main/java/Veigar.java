@@ -1,141 +1,134 @@
-import java.io.PrintStream;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 public class Veigar {
-    static List<Task> storage = new ArrayList<Task>();
+    static List<Task> storage = new ArrayList<>();
     static boolean active = true;
     enum COMMAND {
-        BYE,
-        LIST,
-        BLAH,
-        MARK,
-        UNMARK,
-        TODO,
-        DEADLINE,
-        EVENT,
-        DELETE
-    }
-
-    public static void texts(COMMAND command, String whole) throws VeigarException {
-        //System.out.println(command.name().toLowerCase());
-
-        switch (command) {
-            case BYE:
-                //exit
+        BYE {
+            @Override
+            void execute(String args) {
                 System.out.println("    I shall return, better and BIGGER!!!");
                 active = false;
-                break;
-            case LIST: {
+            }
+        },
+
+        LIST {
+            @Override
+            void execute(String args) {
                 System.out.println("    Suffering awaits!");
                 if (storage.isEmpty()) {
                     System.out.println("    DON'T DEAD OPEN INSIDE LIST IS 0");
-                    break;
+                    return;
                 }
                 for (int i = 0; i < storage.size(); i++) {
-                    System.out.println(((i + 1) + ". " + storage.get(i).toString()).indent(4));
+                    System.out.println(((i + 1) + ". " + storage.get(i)).indent(4));
                 }
-                break;
             }
-            case MARK: {
-                int n = Integer.parseInt(whole);
-                if (n > storage.size() + 1) {
-                    throw new VeigarException("Your commands are wrong");
-                }
+        },
+
+        MARK {
+            @Override
+            void execute(String args) throws VeigarException {
+                int n = parseIndex(args);
                 System.out.println("    Your commands tire me.");
-                storage.get(n - 1).markDone();
-                System.out.println(storage.get(n - 1).toString().indent(4));
-                break;
+                storage.get(n).markDone();
+                System.out.println(storage.get(n).toString().indent(4));
             }
+        },
 
-            case UNMARK: {
-                int n = Integer.parseInt(whole);
-                if (n > storage.size() + 1) {
-                    throw new VeigarException("Your commands are wrong");
-                }
+        UNMARK {
+            @Override
+            void execute(String args) throws VeigarException {
+                int n = parseIndex(args);
                 System.out.println("    No, no, NO! THIS ISN'T OVER!!!");
-                storage.get(n - 1).markUndone();
-                System.out.println(storage.get(n - 1).toString().indent(4));
-                break;
+                storage.get(n).markUndone();
+                System.out.println(storage.get(n).toString().indent(4));
             }
+        },
 
-            case TODO: {
-                if (whole.isEmpty()) {
-                    throw new VeigarException("    You have nothing");
+        TODO {
+            @Override
+            void execute(String args) throws VeigarException {
+                if (args.trim().isEmpty()) {
+                    throw new VeigarException("You have nothing");
                 }
-                storage.add(new ToDo(whole));
-                break;
+                storage.add(new ToDo(args));
+                afterAdd();
             }
+        },
 
-            case EVENT: {
-
-                String[] parts = whole.split(" /from | /to ");
+        EVENT {
+            @Override
+            void execute(String args) throws VeigarException {
+                String[] parts = args.split(" /from | /to ");
                 if (parts.length != 3) {
                     throw new VeigarException("INVALID NUMBER OF ARGS");
                 }
                 storage.add(new Event(parts[0], parts[1], parts[2]));
-                break;
+                afterAdd();
             }
-            case DEADLINE: {
-                String[] parts = whole.split("/by");
+        },
+
+        DEADLINE {
+            @Override
+            void execute(String args) throws VeigarException {
+                String[] parts = args.split("/by");
                 if (parts.length != 2) {
                     throw new VeigarException("INVALID NUMBER OF ARGS");
                 }
                 storage.add(new Deadline(parts[0], parts[1]));
-                break;
+                afterAdd();
             }
-            case DELETE: {
-                int n = Integer.parseInt(whole);
-                if (n > storage.size() + 1) {
-                    throw new VeigarException("Your commands are wrong");
-                }
-                System.out.println("    I have deleted this task:\n    " + storage.get(n-1));
-                storage.remove(n-1);
+        },
 
+        DELETE {
+            @Override
+            void execute(String args) throws VeigarException {
+                int n = parseIndex(args);
+                System.out.println("    I have deleted this task:\n    " + storage.get(n));
+                storage.remove(n);
+                afterAdd();
             }
-        }
-        if (command == COMMAND.TODO || command == COMMAND.EVENT
-                || command == COMMAND.DEADLINE || command == COMMAND.DELETE) {
-            System.out.println("    Now you have " + storage.size() + " tasks in the list");
-        }
+        };
+        abstract void execute(String args) throws VeigarException;
     }
-
-
-    public static boolean isCommand(String value) {
-        if (value == null) {
-            return false;
-        }
+    static int parseIndex(String s) throws VeigarException {
         try {
-            COMMAND.valueOf(value);
-            return true;
-        } catch (IllegalArgumentException e) {
-            return false;
+            int n = Integer.parseInt(s) - 1;
+            if (n < 0 || n >= storage.size()) {
+                throw new VeigarException("Your commands are wrong");
+            }
+            return n;
+        } catch (NumberFormatException e) {
+            throw new VeigarException("Please provide a valid number");
         }
     }
 
-    public static void main(String[] args){
-            //introduction
-            System.out.println("I am VeigarBot \nHEHEHEHA");
+    static void afterAdd() {
+        System.out.println("    Now you have " + storage.size() + " tasks in the list");
+    }
 
-            Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        //introduction
+        System.out.println("I am VeigarBot \nHEHEHEHA");
+
+        Scanner scanner = new Scanner(System.in);
+
+        while (active) {
+            String s = scanner.nextLine();
+            String[] cmd = s.split(" ", 2);
+            String commandArgs = cmd.length > 1 ? cmd[1] : "";
             try {
-                while (active) {
-                    String s = scanner.nextLine();
-                    String[] ssplit = s.split(" ", 2);
-                    String commandArgs = ssplit.length > 1 ? ssplit[1] : "";
-                    if (isCommand(ssplit[0].toUpperCase())) {
-                        COMMAND c = COMMAND.valueOf(ssplit[0].toUpperCase());
-                        texts(c, commandArgs);
-                    } else {
-                        System.out.println("    Whoops no command,Suffering awaits!");
-                    }
-                }
+                COMMAND.valueOf(cmd[0].toUpperCase()).execute(commandArgs);
             } catch (IllegalArgumentException e) {
-                System.out.println("    ERROR! ERROR! ERROR!");
+                System.out.println("    Whoops wrong command, Suffering awaits!");
             } catch (VeigarException e) {
                 System.out.println("    " + e.getMessage());
             }
 
+        }
     }
 
 
