@@ -4,6 +4,7 @@ import java.util.List;
 public class Veigar {
     static List<Task> storage = new ArrayList<>();
     static boolean active = true;
+
     enum COMMAND {
         BYE {
             @Override
@@ -107,6 +108,7 @@ public class Veigar {
 
     static void afterAdd() {
         System.out.println("    Now you have " + storage.size() + " tasks in the list");
+        SaveAndLoad.save(storage);
     }
 
 

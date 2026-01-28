@@ -14,9 +14,8 @@ public abstract class Task {
         this.done = false;
     }
 
-    public abstract String toSave();
 
-    public abstract String fromLoad();
+
     @Override
     public String toString() {
         if (this.done) {

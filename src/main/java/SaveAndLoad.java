@@ -1,3 +1,8 @@
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -8,8 +13,11 @@ import java.util.List;
 public class SaveAndLoad {
 
     private static final Path DATA_DIR = Path.of("data");
-    private static final Path FILE_PATH = DATA_DIR.resolve("tasks.txt");
+    private static final Path FILE_PATH = DATA_DIR.resolve("tasks.json");
 
+    private static final Gson GSON = new GsonBuilder()
+            .setPrettyPrinting()
+            .create();
 
     private static void ensureStorageExists() throws IOException {
         if (!Files.exists(DATA_DIR)) {
@@ -23,11 +31,9 @@ public class SaveAndLoad {
         try {
             // ensure directory exists
             ensureStorageExists();
-            List<String> lines = new ArrayList<>();
-            for (Task t : tasks) {
-                lines.add(t.toString()); // save as plain string
-            }
-            Files.write(FILE_PATH, lines);
+            String json = GSON.toJson(tasks);
+            Files.writeString(FILE_PATH, json);
+
         } catch (Exception e) {
             System.out.println("    Failed to save tasks: " + e.getMessage());
         }
@@ -35,20 +41,8 @@ public class SaveAndLoad {
 
     }
 
-    public static void load(List<Task> tasks) {
-        try {
-            ensureStorageExists();
+    public static void load() {
 
-            tasks.clear();
-            List<String> lines = Files.readAllLines(FILE_PATH);
-            for (String line : lines) {
-                Task t = Task.fromString(line);
-                if (t != null) tasks.add(t);
-            }
-
-        } catch (Exception e) {
-            System.out.println("    Failed to load tasks: " + e.getMessage());
-        }
     }
 
 }
