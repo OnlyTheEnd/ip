@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 public class Veigar {
-    static List<Task> storage = new ArrayList<>();
+    static List<Task> storage = SaveAndLoad.load();
     static boolean active = true;
 
     enum COMMAND {

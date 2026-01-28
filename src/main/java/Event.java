@@ -2,7 +2,7 @@ public class Event extends Task {
     protected String fromDate;
     protected String toDate;
     public Event(String description, String fromDate, String toDate) {
-        super(description);
+        super(description, "Event");
         this.fromDate = fromDate;
         this.toDate = toDate;
     }
