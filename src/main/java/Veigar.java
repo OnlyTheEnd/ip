@@ -91,7 +91,41 @@ public class Veigar {
                 storage.remove(n);
                 afterAdd();
             }
-        };
+        },
+        SHOW {
+            @Override
+            void execute(String args) throws VeigarException {
+                String queryDate = args.trim(); // e.g. "1 Feb 2026"
+                boolean found = false;
+
+                for (int i = 0; i < storage.size(); i++) {
+                    Task t = storage.get(i);
+                    String taskDate = null;
+
+                    if (t instanceof Deadline d) {
+                        taskDate = d.getBy().split(",")[0].trim();
+                    } else if (t instanceof Event e) {
+                        taskDate = e.getToDate().split(",")[0].trim();
+                    } else {
+                        continue; // skip other task types
+                    }
+
+                    if (taskDate.equals(queryDate)) {
+                        System.out.println("    " + (i + 1) + ". " + t);
+                        found = true;
+                    }
+                }
+
+                if (!found) {
+                    System.out.println("    No tasks found on " + queryDate);
+                }
+
+            }
+
+        }
+
+
+        ;
         abstract void execute(String args) throws VeigarException;
     }
     static int parseIndex(String s) throws VeigarException {

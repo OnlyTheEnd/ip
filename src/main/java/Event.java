@@ -6,7 +6,13 @@ public class Event extends Task {
         this.fromDate = parseDateTime(fromDate.trim());
         this.toDate = parseDateTime(toDate.trim());
     }
+    public String getToDate() {
+        return toDate;
+    }
 
+    public String getFromDate() {
+        return fromDate;
+    }
 
     @Override
     public String toString() {

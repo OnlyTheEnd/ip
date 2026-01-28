@@ -6,7 +6,9 @@ public class Deadline extends Task{
         this.by = parseDateTime(byString.trim());
     }
 
-
+    public String getBy() {
+        return by;
+    }
     @Override
     public String toString() {
         return "[D]" + super.toString() + "(by:" + this.by + ")";
