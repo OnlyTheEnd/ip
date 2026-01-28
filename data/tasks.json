@@ -1,13 +1,13 @@
 [
   {
-    "by": " Sunday",
+    "by": "1 Feb 2026, 12:32am",
     "type": "Deadline",
     "description": "return book ",
     "done": false
   },
   {
-    "fromDate": "Mon 2pm",
-    "toDate": "4pm",
+    "fromDate": "2 Feb 2026, 1400",
+    "toDate": "2 Feb 2026, 1600",
     "type": "Event",
     "description": "project meeting",
     "done": false
