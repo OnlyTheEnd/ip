@@ -8,11 +8,18 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SaveAndLoad {
+public class Storage {
 
-    private static final Path DATA_DIR = Path.of("data");
-    private static final Path FILE_PATH = DATA_DIR.resolve("tasks.json");
+    private static Path data = Path.of("data");
+    private static Path filePath = data.resolve("tasks.json");
 
+    public Storage(String filePath) {
+        String[] parts = filePath.split("/");
+        data = Path.of(parts[0]);
+        Storage.filePath = data.resolve(parts[1]);
+
+
+    }
     private static final Gson GSON = new GsonBuilder()
             .setPrettyPrinting()
             .create();
@@ -20,11 +27,11 @@ public class SaveAndLoad {
 
 
     private static void ensureStorageExists() throws Exception {
-        if (!Files.exists(DATA_DIR)) {
-            Files.createDirectories(DATA_DIR);
+        if (!Files.exists(data)) {
+            Files.createDirectories(data);
         }
-        if (!Files.exists(FILE_PATH)) {
-            Files.writeString(FILE_PATH, "[]"); // empty JSON array
+        if (!Files.exists(filePath)) {
+            Files.writeString(filePath, "[]"); // empty JSON array
         }
     }
 
@@ -33,7 +40,7 @@ public class SaveAndLoad {
         try {
             ensureStorageExists();
             String json = GSON.toJson(tasks);
-            Files.writeString(FILE_PATH, json);
+            Files.writeString(filePath, json);
         } catch (Exception e) {
             System.out.println("    Failed to save tasks: " + e.getMessage());
         }
@@ -44,7 +51,7 @@ public class SaveAndLoad {
         List<Task> tasks = new ArrayList<>();
         try {
             ensureStorageExists();
-            String json = Files.readString(FILE_PATH);
+            String json = Files.readString(filePath);
             Gson gson = new Gson();
 
             JsonArray array = gson.fromJson(json, JsonArray.class);
@@ -67,4 +74,5 @@ public class SaveAndLoad {
         }
         return tasks;
     }
+
 }
