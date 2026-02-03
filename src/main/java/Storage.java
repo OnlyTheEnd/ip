@@ -2,7 +2,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ public class Storage {
     private static Path data = Path.of("data");
     private static Path filePath = data.resolve("tasks.json");
 
-    public Storage(String filePath) {
+    public static void setPath(String filePath) {
         String[] parts = filePath.split("/");
         data = Path.of(parts[0]);
         Storage.filePath = data.resolve(parts[1]);

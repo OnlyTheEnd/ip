@@ -91,18 +91,11 @@ public class Command {
                 taskList.showTasks(queryDate);
             }
 
-        }
-
-
-        ;
+        };
         abstract void execute(Ui ui, TaskList taskList, String args) throws VeigarException;
-
-
-
-
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage, String args) throws VeigarException {
+    public void execute(Ui ui, TaskList tasks, String args) throws VeigarException {
         command.execute(ui, tasks, args);
     }
 
