@@ -3,12 +3,13 @@ public class Deadline extends Task{
 
     public Deadline(String description, String byString) {
         super(description, "Deadline");
-        this.by = parseDateTime(byString.trim());
+        this.by = Parser.parseDateTime(byString.trim());
     }
 
     public String getBy() {
         return by;
     }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + "(by:" + this.by + ")";

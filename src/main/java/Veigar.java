@@ -16,7 +16,6 @@ public class Veigar {
     }
 
 
-
     public void run() {
         System.out.println("I am VeigarBot \nHEHEHEHA");
 
@@ -28,7 +27,7 @@ public class Veigar {
             String[] cmd = s.split(" ", 2);
             String commandArgs = cmd.length > 1 ? cmd[1] : "";
             Command c = new Command(Command.COMMAND.valueOf(cmd[0].toUpperCase()));
-            c.execute(tasks.getter(), ui, storage, commandArgs);
+            c.execute(tasks, ui, storage, commandArgs);
             isActive = c.isActive();
             } catch (IllegalArgumentException | VeigarException e) {
                 System.out.println("    Whoops wrong command, Suffering awaits!");

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
-
+    //Default save path
     private static Path data = Path.of("data");
     private static Path filePath = data.resolve("tasks.json");
 
@@ -17,9 +17,8 @@ public class Storage {
         String[] parts = filePath.split("/");
         data = Path.of(parts[0]);
         Storage.filePath = data.resolve(parts[1]);
-
-
     }
+
     private static final Gson GSON = new GsonBuilder()
             .setPrettyPrinting()
             .create();

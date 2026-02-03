@@ -3,8 +3,8 @@ public class Event extends Task {
     protected String toDate;
     public Event(String description, String fromDate, String toDate) {
         super(description, "Event");
-        this.fromDate = parseDateTime(fromDate.trim());
-        this.toDate = parseDateTime(toDate.trim());
+        this.fromDate = Parser.parseDateTime(fromDate.trim());
+        this.toDate = Parser.parseDateTime(toDate.trim());
     }
     public String getToDate() {
         return toDate;
