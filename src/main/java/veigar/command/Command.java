@@ -9,12 +9,15 @@ import veigar.exception.VeigarException;
 import veigar.tools.Ui;
 
 public class Command {
-    private final COMMAND command; // already exists (singleton)
+    private final COMMAND command;
 
     public Command(COMMAND command) {
         this.command = command;
-
     }
+
+    /**
+     * enums for all the possible commands.
+     */
     public enum COMMAND {
 
         BYE {
@@ -103,10 +106,22 @@ public class Command {
         abstract void execute(Ui ui, TaskList taskList, String args) throws VeigarException;
     }
 
+    /**
+     * Executes the command.
+     * @param ui Ui component.
+     * @param tasks TaskList.
+     * @param args args for enums.
+     * @throws VeigarException on error.
+     */
     public void execute(Ui ui, TaskList tasks, String args) throws VeigarException {
         command.execute(ui, tasks, args);
     }
 
+
+    /**
+     * Indicates whether the program should still run.
+     * @return Whether the program is still active.
+     */
     public Boolean isActive() {
         return command != COMMAND.BYE;
     }

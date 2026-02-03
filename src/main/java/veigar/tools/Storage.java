@@ -9,6 +9,7 @@ import veigar.task.Event;
 import veigar.task.Task;
 import veigar.task.ToDo;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -19,19 +20,29 @@ public class Storage {
     private static Path data = Path.of("data");
     private static Path filePath = data.resolve("base.json");
 
+    /**
+     * Sets the destination of save file.
+     * @param filePath Destination of save file.
+     */
     public static void setPath(String filePath) {
         String[] parts = filePath.split("/");
         data = Path.of(parts[0]);
         Storage.filePath = data.resolve(parts[1]);
     }
 
+    /**
+     * Instantiates GsonBuilder to help build save file as a .json file.
+     */
     private static final Gson GSON = new GsonBuilder()
             .setPrettyPrinting()
             .create();
 
 
-
-    private static void ensureStorageExists() throws Exception {
+    /**
+     * Checks if directory is there, else creates a new directory.
+     * @throws IOException if directory not found
+     */
+    private static void ensureStorageExists() throws IOException {
         if (!Files.exists(data)) {
             Files.createDirectories(data);
         }
@@ -40,18 +51,24 @@ public class Storage {
         }
     }
 
-    // Save a generic list of tasks to JSON
+    /**
+     * Save a generic list of tasks to JSON.
+     * @param tasks Saves the taskList to a JSON file specified under filePath.
+     */
     public static void save(List<Task> tasks) {
         try {
             ensureStorageExists();
             String json = GSON.toJson(tasks);
             Files.writeString(filePath, json);
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("    Failed to save tasks: " + e.getMessage());
         }
     }
 
-
+    /**
+     * Loads a generic list of tasks from JSON.
+     * @return the Task List obtained from converting JSON file found at filePath.
+     */
     public static List<Task> load() {
         List<Task> tasks = new ArrayList<>();
         try {

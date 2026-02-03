@@ -12,13 +12,26 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.Locale;
 import veigar.exception.VeigarException;
 
+/**
+ * Responsible for Parsing and reading user input into the app.
+ */
 public class Parser {
 
+    /**
+     * Standardises date and time output as for example 27 Mar 2003, 2200.
+     */
     private static final DateTimeFormatter OUTPUT_FORMAT =
             DateTimeFormatter.ofPattern("d MMM uuuu, HHmm");
 
-    //formats: 1.Monday -> next monday same time 2.31/12/2023 2359 3. 2 Feb 2023, 5:00PM 4.31/12/2003 5.Mon 4pm -> next monday time
-
+    /**
+     * Enum for possible user inputs.
+     * 1. Date and Time with slashes ex. 31/12/2023 2359.
+     * 2. Date and Time with letters ex. 2 Feb 2023, 5:00PM.
+     * 3. Day and Time -> Next Occurrence of Day at set time ex. Mon 4pm.
+     * 4. Date with slashes -> Date and time set to 0000 ex.31/12/2023.
+     * 5. Day -> Next Occurrence of Day at current time.ex.Monday.
+     *
+     */
     private enum DateFormat {
         DATETIME_SLASH("d/M/uuuu HHmm"),
         DATETIME_TEXT("d MMM uuuu, h:mma"),
@@ -35,6 +48,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Helper function for parseDateTime.
+
+     * @param input User input of date as a String.
+     * @return TemporalAccessor of String else null.
+     */
     private static TemporalAccessor tryParse(String input) {
         for (DateFormat format : DateFormat.values()) {
             try {
@@ -46,13 +65,17 @@ public class Parser {
         return null;
     }
 
-    public static String parseDateTime(String byString) throws DateTimeParseException {
+    /**
+     * Compares between the DateFormat enums and return most specific match.
+     * @param inputString User input of date as a String.
+     * @return Date and time in the specified OUTPUT_FORMAT.
+     * @throws NullPointerException if String pattern.
+     */
+    public static String parseDateTime(String inputString) throws NullPointerException {
         try {
             LocalDateTime date = LocalDateTime.now();
-            TemporalAccessor parsed = tryParse(byString);
+            TemporalAccessor parsed = tryParse(inputString);
             LocalDateTime now = LocalDateTime.now();
-
-
             if (parsed.isSupported(ChronoField.EPOCH_DAY)) {
                 if (parsed.isSupported(ChronoField.HOUR_OF_DAY)) {
                     date = LocalDateTime.from(parsed);
@@ -67,12 +90,19 @@ public class Parser {
                 }
             }
             return date.format(OUTPUT_FORMAT);
-        } catch (DateTimeParseException e) {
+        } catch (NullPointerException d) {
             System.out.println("Wrong date format");
         }
         return null;
     }
 
+    /**
+     * Parses list index number from user input.
+     * @param s Input Argument.
+     * @param taskList List of Tasks.
+     * @return A valid List index in taskList.
+     * @throws VeigarException Number cannot be read or out of bounds
+     */
     public static int parseIndex(String s, TaskList taskList) throws VeigarException {
         try {
             int n = Integer.parseInt(s) - 1;
