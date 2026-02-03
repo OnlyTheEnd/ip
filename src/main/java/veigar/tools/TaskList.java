@@ -32,7 +32,7 @@ public class TaskList {
 
     public void addTask(Task T) {
         taskList.add(T);
-        afterAdd(taskList);
+        afterChange(taskList);
     }
 
     public void removeTask(int i) {
@@ -75,7 +75,7 @@ public class TaskList {
         }
     }
 
-    static void afterAdd(List<Task> taskList) {
+    static void afterChange(List<Task> taskList) {
         System.out.println("    Now you have " + taskList.size() + " tasks in the list");
         Storage.save(taskList);
     }

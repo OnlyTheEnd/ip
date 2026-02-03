@@ -13,8 +13,8 @@ public class Veigar {
 
     public Veigar(String filePath) {
         ui = new Ui();
-        tasks = new TaskList(Storage.load());
         Storage.setPath(filePath);
+        tasks = new TaskList(Storage.load());
 
     }
 

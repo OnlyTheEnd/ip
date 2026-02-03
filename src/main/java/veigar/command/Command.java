@@ -107,10 +107,6 @@ public class Command {
         command.execute(ui, tasks, args);
     }
 
-
-
-
-
     public Boolean isActive() {
         return command != COMMAND.BYE;
     }

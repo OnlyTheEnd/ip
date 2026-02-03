@@ -17,7 +17,7 @@ import java.util.List;
 public class Storage {
     //Default save path
     private static Path data = Path.of("data");
-    private static Path filePath = data.resolve("tasks.json");
+    private static Path filePath = data.resolve("base.json");
 
     public static void setPath(String filePath) {
         String[] parts = filePath.split("/");
