@@ -1,9 +1,19 @@
 package veigar.task;
 import veigar.tools.Parser;
+
+/**
+ * Events are tasks that happens within a set time period.
+ */
 public class Event extends Task {
     protected String fromDate;
     protected String toDate;
 
+    /**
+     * Creates a event task with specified description, from date and time and to date and time.
+     * @param description Event Task that is happening.
+     * @param fromDate Event start date and time.
+     * @param toDate Event end date and time.
+     */
     public Event(String description, String fromDate, String toDate) {
         super(description, "veigar.task.Event");
         this.fromDate = Parser.parseDateTime(fromDate.trim());
@@ -17,6 +27,10 @@ public class Event extends Task {
         return fromDate;
     }
 
+    /**
+     * Formats the Event to display to user.
+     * @return Deadline details in the format [E][complete?]description (from: date and time to: date and time).
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.fromDate + " to: " + this.toDate + ")";
