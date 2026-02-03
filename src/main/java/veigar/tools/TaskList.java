@@ -85,7 +85,10 @@ public class TaskList {
             System.out.println("    No tasks found on " + queryDate);
         }
     }
-
+    /**
+     * Displays the specified tasks which description matches the queryString.
+     * @param queryString String of Task Description to be matched.
+     */
     public void findTasks(String queryString) {
         boolean found = false;
         for (int i = 0; i < taskList.size(); i++) {

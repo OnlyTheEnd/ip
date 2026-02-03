@@ -9,7 +9,7 @@ public class Event extends Task {
     protected String toDate;
 
     /**
-     * Creates a event task with specified description, from date and time and to date and time.
+     * Creates an event task with specified description, from date and time and to date and time.
      * @param description Event Task that is happening.
      * @param fromDate Event start date and time.
      * @param toDate Event end date and time.
