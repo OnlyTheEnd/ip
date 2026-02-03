@@ -55,7 +55,6 @@ public class TaskList {
         for (int i = 0; i < taskList.size(); i++) {
             Task t = taskList.get(i);
             String taskDate;
-
             if (t instanceof Deadline d) {
                 taskDate = d.getBy().split(",")[0].trim();
             } else if (t instanceof Event e) {
@@ -69,7 +68,21 @@ public class TaskList {
                 found = true;
             }
         }
+        if (!found) {
+            System.out.println("    No tasks found on " + queryDate);
+        }
+    }
 
+    public void findTasks(String queryString) {
+        boolean found = false;
+        for (int i = 0; i < taskList.size(); i++) {
+            String taskDescription = taskList.get(i).getDescription();
+            if (taskDescription.contains(queryString)) {
+                System.out.println("    " + (i + 1) + ". " + taskList.get(i));
+                found = true;
+            }
+
+        }
         if (!found) {
             System.out.println("    No tasks found on " + queryDate);
         }

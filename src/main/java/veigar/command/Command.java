@@ -99,7 +99,15 @@ public class Command {
                 taskList.showTasks(queryDate);
             }
 
-        };
+        },
+        FIND {
+            @Override
+            void execute(Ui ui, TaskList taskList, String args) throws VeigarException {
+                String queryString  = args.trim();
+                taskList.findTasks(queryString);
+            }
+        }
+        ;
         abstract void execute(Ui ui, TaskList taskList, String args) throws VeigarException;
     }
 
