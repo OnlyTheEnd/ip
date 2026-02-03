@@ -1,4 +1,12 @@
-import java.util.List;
+package veigar.command;
+
+import veigar.task.Deadline;
+import veigar.task.Event;
+import veigar.task.ToDo;
+import veigar.tools.Parser;
+import veigar.tools.TaskList;
+import veigar.exception.VeigarException;
+import veigar.tools.Ui;
 
 public class Command {
     private final COMMAND command; // already exists (singleton)
@@ -7,7 +15,7 @@ public class Command {
         this.command = command;
 
     }
-    enum COMMAND {
+    public enum COMMAND {
 
         BYE {
             @Override
@@ -20,7 +28,7 @@ public class Command {
             @Override
             void execute(Ui ui, TaskList taskList, String args) {
                 System.out.println("    Suffering awaits!");
-
+                taskList.listTasks();
             }
         },
 

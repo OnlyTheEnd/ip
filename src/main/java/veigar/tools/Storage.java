@@ -1,7 +1,14 @@
+package veigar.tools;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import veigar.task.Deadline;
+import veigar.task.Event;
+import veigar.task.Task;
+import veigar.task.ToDo;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -58,9 +65,9 @@ public class Storage {
                 String type = obj.get("type").getAsString();
 
                 Task task = switch (type) {
-                    case "ToDo" -> gson.fromJson(obj, ToDo.class);
-                    case "Deadline" -> gson.fromJson(obj, Deadline.class);
-                    case "Event" -> gson.fromJson(obj, Event.class);
+                    case "veigar.task.ToDo" -> gson.fromJson(obj, ToDo.class);
+                    case "veigar.task.Deadline" -> gson.fromJson(obj, Deadline.class);
+                    case "veigar.task.Event" -> gson.fromJson(obj, Event.class);
                     default -> null;
                 };
 

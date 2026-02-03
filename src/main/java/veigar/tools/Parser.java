@@ -1,3 +1,5 @@
+package veigar.tools;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -8,6 +10,7 @@ import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Locale;
+import veigar.exception.VeigarException;
 
 public class Parser {
 

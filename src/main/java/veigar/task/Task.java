@@ -1,3 +1,6 @@
+package veigar.task;
+
+
 public abstract class Task {
 
     protected String type;

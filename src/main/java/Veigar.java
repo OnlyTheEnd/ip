@@ -1,3 +1,9 @@
+import veigar.command.Command;
+import veigar.exception.VeigarException;
+import veigar.tools.Storage;
+import veigar.tools.TaskList;
+import veigar.tools.Ui;
+
 import java.util.Scanner;
 
 public class Veigar {
@@ -34,7 +40,7 @@ public class Veigar {
 
     public static void main(String[] args) {
         //introduction
-        new Veigar("data/tasks.txt").run();
+        new Veigar("data/tasks.json").run();
     }
 
 

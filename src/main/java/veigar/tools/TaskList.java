@@ -1,3 +1,9 @@
+package veigar.tools;
+
+import veigar.task.Deadline;
+import veigar.task.Event;
+import veigar.task.Task;
+
 import java.util.List;
 
 public class TaskList {

@@ -1,7 +1,9 @@
+package veigar.task;
+
 public class ToDo extends Task{
 
     public ToDo(String description) {
-        super(description, "ToDo");
+        super(description, "veigar.task.ToDo");
     }
 
 
