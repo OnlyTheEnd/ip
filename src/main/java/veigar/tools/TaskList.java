@@ -32,7 +32,7 @@ public class TaskList {
      */
     public void addTask(Task T) {
         taskList.add(T);
-        afterChange(taskList);
+        afterChange();
     }
 
     /**
@@ -41,7 +41,7 @@ public class TaskList {
      */
     public void removeTask(int i) {
         taskList.remove(i);
-        afterChange(taskList);
+        afterChange();
     }
 
     /**
@@ -100,7 +100,7 @@ public class TaskList {
 
         }
         if (!found) {
-            System.out.println("    No tasks found on " + queryDate);
+            System.out.println("    No tasks found matching " + queryString);
         }
     }
 
