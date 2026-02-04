@@ -7,12 +7,13 @@ import veigar.tools.Parser;
 import veigar.tools.TaskList;
 import veigar.tools.Ui;
 
+
 /**
- * Possible Commands by the user.
+ * Represents Commands by the user to be executed.
  */
 public class Command {
     private final Cmd command;
-
+    private final StringBuilder stringBuilder = new StringBuilder();
     public Command(Cmd command) {
         this.command = command;
     }
@@ -24,95 +25,101 @@ public class Command {
 
         BYE {
             @Override
-            void execute(Ui ui, TaskList taskList, String args) {
-                System.out.println("    I shall return, better and BIGGER!!!");
+            CommandResult execute(Ui ui, TaskList taskList, String args) {
+                String exitString = "I shall return, better and BIGGER!!!";
+                return new CommandResult(exitString, false, true);
             }
         },
 
         LIST {
             @Override
-            void execute(Ui ui, TaskList taskList, String args) {
-                System.out.println("    Suffering awaits!");
-                taskList.listTasks();
+            CommandResult execute(Ui ui, TaskList taskList, String args) {
+                String listString = "Suffering awaits!\n" + taskList.listTasks();
+                return new CommandResult(listString);
             }
         },
 
         MARK {
             @Override
-            void execute(Ui ui, TaskList taskList, String args) throws VeigarException {
+            CommandResult execute(Ui ui, TaskList taskList, String args) throws VeigarException {
                 int n = Parser.parseIndex(args, taskList);
-                System.out.println("    Your commands tire me.");
-                taskList.getTask(n).markDone();
-                System.out.println(taskList.getTask(n).toString().indent(4));
+                taskList.markDone(n);
+                String markString = "Your commands tire me.\n" + taskList.getTask(n).toString();
+                return new CommandResult(markString);
             }
         },
 
         UNMARK {
             @Override
-            void execute(Ui ui, TaskList taskList, String args) throws VeigarException {
+            CommandResult execute(Ui ui, TaskList taskList, String args) throws VeigarException {
                 int n = Parser.parseIndex(args, taskList);
-                System.out.println("    No, no, NO! THIS ISN'T OVER!!!");
-                taskList.getTask(n).markUndone();
-                System.out.println(taskList.getTask(n).toString().indent(4));
+                taskList.markUndone(n);
+                String unmarkString = "No, no, NO! THIS ISN'T OVER!!!\n" + taskList.getTask(n).toString();
+                return new CommandResult(unmarkString);
             }
         },
 
         TODO {
             @Override
-            void execute(Ui ui, TaskList taskList, String args) throws VeigarException {
+            CommandResult execute(Ui ui, TaskList taskList, String args) throws VeigarException {
                 if (args.trim().isEmpty()) {
-                    throw new VeigarException("You have nothing");
+                    return new CommandResult("You have nothing in your args");
                 }
                 taskList.addTask(new ToDo(args));
+                return new CommandResult("Now you have " + taskList.getListSize() + " tasks in the list");
             }
         },
 
         EVENT {
             @Override
-            void execute(Ui ui, TaskList taskList, String args) throws VeigarException {
+            CommandResult execute(Ui ui, TaskList taskList, String args) throws VeigarException {
                 String[] parts = args.split(" /from | /to ");
                 if (parts.length != 3) {
-                    throw new VeigarException("INVALID NUMBER OF ARGS");
+                    return new CommandResult("Invalid number of args");
                 }
                 taskList.addTask(new Event(parts[0], parts[1], parts[2]));
+                return new CommandResult("Now you have " + taskList.getListSize() + " tasks in the list");
             }
         },
 
         DEADLINE {
             @Override
-            void execute(Ui ui, TaskList taskList, String args) throws VeigarException {
+            CommandResult execute(Ui ui, TaskList taskList, String args) throws VeigarException {
                 String[] parts = args.split("/by");
                 if (parts.length != 2) {
-                    throw new VeigarException("INVALID NUMBER OF ARGS");
+                    return new CommandResult("Invalid number of args");
                 }
                 taskList.addTask(new Deadline(parts[0], parts[1]));
+                return new CommandResult("Now you have " + taskList.getListSize() + " tasks in the list");
             }
         },
 
         DELETE {
             @Override
-            void execute(Ui ui, TaskList taskList, String args) throws VeigarException {
+            CommandResult execute(Ui ui, TaskList taskList, String args) throws VeigarException {
                 int n = Parser.parseIndex(args, taskList);
-                System.out.println("    I have deleted this task:\n    " + taskList.getTask(n));
+                String deleteString = "I have deleted this task:\n" + taskList.getTask(n);
                 taskList.removeTask(n);
+                return new CommandResult(deleteString);
             }
         },
         SHOW {
             @Override
-            void execute(Ui ui, TaskList taskList, String args) throws VeigarException {
+            CommandResult execute(Ui ui, TaskList taskList, String args) throws VeigarException {
                 String queryDate = args.trim(); // e.g. "1 Feb 2026"
-                taskList.showTasks(queryDate);
+                String showString = taskList.showTasks(queryDate);
+                return new CommandResult(showString);
             }
-
         },
         FIND {
             @Override
-            void execute(Ui ui, TaskList taskList, String args) throws VeigarException {
-                String queryString  = args.trim();
-                taskList.findTasks(queryString);
+            CommandResult execute(Ui ui, TaskList taskList, String args) throws VeigarException {
+                String queryString = args.trim();
+                String findString = taskList.findTasks(queryString);
+                return new CommandResult(findString);
             }
         };
-        abstract void execute(Ui ui, TaskList taskList, String args) throws VeigarException;
+        abstract CommandResult execute(Ui ui, TaskList taskList, String args) throws VeigarException;
     }
 
     /**
@@ -122,17 +129,9 @@ public class Command {
      * @param args args for enums.
      * @throws VeigarException on error.
      */
-    public void execute(Ui ui, TaskList tasks, String args) throws VeigarException {
-        command.execute(ui, tasks, args);
+    public CommandResult execute(Ui ui, TaskList tasks, String args) throws VeigarException {
+        return command.execute(ui, tasks, args);
     }
 
-
-    /**
-     * Indicates whether the program should still run.
-     * @return Whether the program is still active.
-     */
-    public Boolean isActive() {
-        return command != Cmd.BYE;
-    }
 }
 

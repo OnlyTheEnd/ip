@@ -9,10 +9,11 @@ import veigar.task.Task;
 
 
 /**
- * TaskList
+ * Operates on taskList.
  */
 public class TaskList {
     private List<Task> taskList;
+    private final StringBuilder stringBuilder = new StringBuilder();
 
     public TaskList(List<Task> taskList) {
         this.taskList = taskList;
@@ -22,7 +23,7 @@ public class TaskList {
         return taskList.size();
     }
 
-    public Task getTask(int i) throws IndexOutOfBoundsException{
+    public Task getTask(int i) throws IndexOutOfBoundsException {
         try {
             return taskList.get(i);
         } catch (IndexOutOfBoundsException e) {
@@ -33,10 +34,10 @@ public class TaskList {
 
     /**
      * Adds Task T into the taskList.
-     * @param T A Task.
+     * @param task A Task.
      */
-    public void addTask(Task T) {
-        taskList.add(T);
+    public void addTask(Task task) {
+        taskList.add(task);
         afterChange();
     }
 
@@ -49,26 +50,37 @@ public class TaskList {
         afterChange();
     }
 
+    public void markUndone(int i) {
+        taskList.get(i).markUndone();
+        afterChange();
+    }
+
+    public void markDone(int i) {
+        taskList.get(i).markDone();
+        afterChange();
+    }
     /**
      * Displays the entire taskList as a String, each line representing one Task with a space after each one.
      * Displays empty message if size of taskList is 0.
      */
-    public void listTasks() {
-        int size = taskList.size();
-        if (size == 0) {
-            System.out.println("    DON'T DEAD OPEN INSIDE LIST IS 0");
-            return;
+    public String listTasks() {
+        if (!taskList.isEmpty()) {
+            for (int i = 0; i < taskList.size(); i++) {
+                stringBuilder.append((i + 1)).append(". ").append(taskList.get(i));
+            }
+        } else {
+            stringBuilder.append("DONT DEAD OPEN INSIDE LIST IS 0");
         }
-        for (int i = 0; i < size; i++) {
-            System.out.println(((i + 1) + ". " + taskList.get(i)).indent(4));
-        }
+        String listString = stringBuilder.toString();
+        stringBuilder.setLength(0);
+        return listString;
     }
 
     /**
      * Displays the specified tasks which matches the queryDate date component.
      * @param queryDate Date of Task to be matched.
      */
-    public void showTasks(String queryDate) {
+    public String showTasks(String queryDate) {
         boolean found = false;
         for (int i = 0; i < taskList.size(); i++) {
             Task t = taskList.get(i);
@@ -80,40 +92,43 @@ public class TaskList {
             } else {
                 continue; // skip other task types
             }
-
             if (taskDate.equals(queryDate)) {
-                System.out.println("    " + (i + 1) + ". " + t);
+                stringBuilder.append((i + 1)).append(". ").append(t);
                 found = true;
             }
         }
+        String showString = stringBuilder.toString();
+        stringBuilder.setLength(0);
         if (!found) {
-            System.out.println("    No tasks found on " + queryDate);
+            showString = "tasks found on " + queryDate;
         }
+        return showString;
     }
     /**
      * Displays the specified tasks which description matches the queryString.
      * @param queryString String of Task Description to be matched.
      */
-    public void findTasks(String queryString) {
+    public String findTasks(String queryString) {
         boolean found = false;
         for (int i = 0; i < taskList.size(); i++) {
             String taskDescription = taskList.get(i).getDescription();
             if (taskDescription.contains(queryString)) {
-                System.out.println("    " + (i + 1) + ". " + taskList.get(i));
+                stringBuilder.append((i + 1)).append(". ").append(taskList.get(i));
                 found = true;
             }
-
         }
+        String findString = stringBuilder.toString();
+        stringBuilder.setLength(0);
         if (!found) {
-            System.out.println("    No tasks found matching " + queryString);
+            findString = "No tasks found matching " + queryString;
         }
+        return findString;
     }
 
     /**
-     * Displays any updates to size of taskList when it changes
+     * Saves after any updates to taskList.
      */
     private void afterChange() {
-        System.out.println("    Now you have " + taskList.size() + " tasks in the list");
         Storage.save(taskList);
     }
 }
