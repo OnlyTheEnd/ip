@@ -74,17 +74,16 @@ public class Storage {
         try {
             ensureStorageExists();
             String json = Files.readString(filePath);
-            Gson gson = new Gson();
 
-            JsonArray array = gson.fromJson(json, JsonArray.class);
+            JsonArray array = GSON.fromJson(json, JsonArray.class);
             for (var elem : array) {
                 JsonObject obj = elem.getAsJsonObject();
                 String type = obj.get("type").getAsString();
 
                 Task task = switch (type) {
-                    case "veigar.task.ToDo" -> gson.fromJson(obj, ToDo.class);
-                    case "veigar.task.Deadline" -> gson.fromJson(obj, Deadline.class);
-                    case "veigar.task.Event" -> gson.fromJson(obj, Event.class);
+                    case "veigar.task.ToDo" -> GSON.fromJson(obj, ToDo.class);
+                    case "veigar.task.Deadline" -> GSON.fromJson(obj, Deadline.class);
+                    case "veigar.task.Event" -> GSON.fromJson(obj, Event.class);
                     default -> null;
                 };
 
