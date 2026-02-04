@@ -31,30 +31,24 @@ public class Veigar {
      * While not exiting, parses the users commands into commands and further arguments.
      * Executes the specified command if found, else warns the user about it.
      */
-    public void run() {
-        System.out.println("I am VeigarBot \nHEHEHEHA");
-
-        Scanner scanner = new Scanner(System.in);
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String s = scanner.nextLine();
-                String[] cmd = s.split(" ", 2);
-                String commandArgs = cmd.length > 1 ? cmd[1] : "";
-                Command c = new Command(Command.Cmd.valueOf(cmd[0].toUpperCase()));
-                CommandResult cr = c.execute(ui, tasks, commandArgs);
-                //for reply
-                System.out.println(cr.getFeedbackToUser());
-                isExit = cr.isExit();
-            } catch (IllegalArgumentException | VeigarException e) {
-                System.out.println("Whoops wrong command, Suffering awaits!");
-            }
+    public CommandResult getResponse(String input) {
+        //System.out.println("I am VeigarBot \nHEHEHEHA");
+        try {
+            //Scanner scanner = new Scanner(System.in);
+            //String s = scanner.nextLine();
+            String[] cmd = input.split(" ", 2);
+            String commandArgs = cmd.length > 1 ? cmd[1] : "";
+            Command c = new Command(Command.Cmd.valueOf(cmd[0].toUpperCase()));
+            //for reply
+            return c.execute(ui, tasks, commandArgs);
+        } catch (IllegalArgumentException | VeigarException e) {
+            System.out.println("Whoops wrong command, Suffering awaits!");
         }
+        return new CommandResult("Error Error", false, true);
     }
 
-
     public static void main(String[] args) {
-        new Veigar("data/tasks.json").run();
+        new Veigar("data/tasks.json");
     }
 
 

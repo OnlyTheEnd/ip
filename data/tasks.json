@@ -3,7 +3,7 @@
     "by": "8 Feb 2026, 1701",
     "type": "veigar.task.Deadline",
     "description": "return book ",
-    "done": false
+    "done": true
   },
   {
     "type": "veigar.task.ToDo",

@@ -27,7 +27,7 @@ public class TaskList {
         try {
             return taskList.get(i);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("    Index out of bounds");
+            System.out.println("Index out of bounds");
         }
         return taskList.get(0);
     }
@@ -50,11 +50,19 @@ public class TaskList {
         afterChange();
     }
 
+    /**
+     * Unmarks a Task from taskList at index i
+     * @param i Index of task to be unmarked.
+     */
     public void markUndone(int i) {
         taskList.get(i).markUndone();
         afterChange();
     }
 
+    /**
+     * Marks a Task from taskList at index i
+     * @param i Index of task to be marked.
+     */
     public void markDone(int i) {
         taskList.get(i).markDone();
         afterChange();
@@ -66,7 +74,7 @@ public class TaskList {
     public String listTasks() {
         if (!taskList.isEmpty()) {
             for (int i = 0; i < taskList.size(); i++) {
-                stringBuilder.append((i + 1)).append(". ").append(taskList.get(i));
+                stringBuilder.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
             }
         } else {
             stringBuilder.append("DONT DEAD OPEN INSIDE LIST IS 0");
@@ -93,7 +101,7 @@ public class TaskList {
                 continue; // skip other task types
             }
             if (taskDate.equals(queryDate)) {
-                stringBuilder.append((i + 1)).append(". ").append(t);
+                stringBuilder.append((i + 1)).append(". ").append(t).append("\n");
                 found = true;
             }
         }
@@ -113,7 +121,7 @@ public class TaskList {
         for (int i = 0; i < taskList.size(); i++) {
             String taskDescription = taskList.get(i).getDescription();
             if (taskDescription.contains(queryString)) {
-                stringBuilder.append((i + 1)).append(". ").append(taskList.get(i));
+                stringBuilder.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
                 found = true;
             }
         }

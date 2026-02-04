@@ -15,7 +15,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.13.2'
 
     //for javaFX
-    String javaFxVersion = '17.0.7'
+    String javaFxVersion = '17.0.17'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("Veigar")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
