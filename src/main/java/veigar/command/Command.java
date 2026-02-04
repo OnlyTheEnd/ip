@@ -1,24 +1,26 @@
 package veigar.command;
-
+import veigar.exception.VeigarException;
 import veigar.task.Deadline;
 import veigar.task.Event;
 import veigar.task.ToDo;
 import veigar.tools.Parser;
 import veigar.tools.TaskList;
-import veigar.exception.VeigarException;
 import veigar.tools.Ui;
 
+/**
+ * Possible Commands by the user.
+ */
 public class Command {
-    private final COMMAND command;
+    private final Cmd command;
 
-    public Command(COMMAND command) {
+    public Command(Cmd command) {
         this.command = command;
     }
 
     /**
      * enums for all the possible commands.
      */
-    public enum COMMAND {
+    public enum Cmd {
 
         BYE {
             @Override
@@ -109,8 +111,7 @@ public class Command {
                 String queryString  = args.trim();
                 taskList.findTasks(queryString);
             }
-        }
-        ;
+        };
         abstract void execute(Ui ui, TaskList taskList, String args) throws VeigarException;
     }
 
@@ -131,7 +132,7 @@ public class Command {
      * @return Whether the program is still active.
      */
     public Boolean isActive() {
-        return command != COMMAND.BYE;
+        return command != Cmd.BYE;
     }
 }
 

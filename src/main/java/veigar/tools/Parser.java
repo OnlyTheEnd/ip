@@ -50,7 +50,6 @@ public class Parser {
 
     /**
      * Helper function for parseDateTime.
-
      * @param input User input of date as a String.
      * @return TemporalAccessor of String else null.
      */

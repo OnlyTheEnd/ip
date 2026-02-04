@@ -1,11 +1,16 @@
 import veigar.command.Command;
+
+import java.util.Scanner;
+
 import veigar.exception.VeigarException;
 import veigar.tools.Storage;
 import veigar.tools.TaskList;
 import veigar.tools.Ui;
 
-import java.util.Scanner;
 
+/**
+ * Main class.
+ */
 public class Veigar {
     private Ui ui;
     private TaskList tasks;
@@ -32,12 +37,12 @@ public class Veigar {
         boolean isActive = true;
         while (isActive) {
             try {
-            String s = scanner.nextLine();
-            String[] cmd = s.split(" ", 2);
-            String commandArgs = cmd.length > 1 ? cmd[1] : "";
-            Command c = new Command(Command.COMMAND.valueOf(cmd[0].toUpperCase()));
-            c.execute(ui, tasks, commandArgs);
-            isActive = c.isActive();
+                String s = scanner.nextLine();
+                String[] cmd = s.split(" ", 2);
+                String commandArgs = cmd.length > 1 ? cmd[1] : "";
+                Command c = new Command(Command.Cmd.valueOf(cmd[0].toUpperCase()));
+                c.execute(ui, tasks, commandArgs);
+                isActive = c.isActive();
             } catch (IllegalArgumentException | VeigarException e) {
                 System.out.println("    Whoops wrong command, Suffering awaits!");
             }

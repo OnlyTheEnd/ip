@@ -4,7 +4,7 @@ import veigar.tools.Parser;
 /**
  * Deadlines are tasks that need to be completed before by date.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
     protected String by;
 
     /**

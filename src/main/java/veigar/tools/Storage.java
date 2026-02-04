@@ -1,24 +1,38 @@
 package veigar.tools;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import veigar.task.Deadline;
-import veigar.task.Event;
-import veigar.task.Task;
-import veigar.task.ToDo;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import veigar.task.Deadline;
+import veigar.task.Event;
+import veigar.task.Task;
+import veigar.task.ToDo;
+
+
+/**
+ *
+ */
 public class Storage {
     //Default save path
     private static Path data = Path.of("data");
     private static Path filePath = data.resolve("base.json");
+
+
+
+    /**
+     * Instantiates GsonBuilder to help build save file as a .json file.
+     */
+    private static final Gson GSON = new GsonBuilder()
+            .setPrettyPrinting()
+            .create();
 
     /**
      * Sets the destination of save file.
@@ -29,14 +43,6 @@ public class Storage {
         data = Path.of(parts[0]);
         Storage.filePath = data.resolve(parts[1]);
     }
-
-    /**
-     * Instantiates GsonBuilder to help build save file as a .json file.
-     */
-    private static final Gson GSON = new GsonBuilder()
-            .setPrettyPrinting()
-            .create();
-
 
     /**
      * Checks if directory is there, else creates a new directory.
@@ -81,13 +87,15 @@ public class Storage {
                 String type = obj.get("type").getAsString();
 
                 Task task = switch (type) {
-                    case "veigar.task.ToDo" -> GSON.fromJson(obj, ToDo.class);
-                    case "veigar.task.Deadline" -> GSON.fromJson(obj, Deadline.class);
-                    case "veigar.task.Event" -> GSON.fromJson(obj, Event.class);
-                    default -> null;
+                case "veigar.task.ToDo" -> GSON.fromJson(obj, ToDo.class);
+                case "veigar.task.Deadline" -> GSON.fromJson(obj, Deadline.class);
+                case "veigar.task.Event" -> GSON.fromJson(obj, Event.class);
+                default -> null;
                 };
 
-                if (task != null) tasks.add(task);
+                if (task != null) {
+                    tasks.add(task);
+                }
             }
 
         } catch (Exception e) {

@@ -14,7 +14,7 @@ public abstract class Task {
      * @param description A task the user has to do.
      * @param type Type of Task
      */
-    public Task(String description, String type){
+    public Task(String description, String type) {
         this.type = type;
         this.description = description;
         this.done = false;
