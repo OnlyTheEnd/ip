@@ -3,7 +3,7 @@
     "by": "8 Feb 2026, 1701",
     "type": "veigar.task.Deadline",
     "description": "return book ",
-    "done": true
+    "done": false
   },
   {
     "type": "veigar.task.ToDo",
@@ -15,6 +15,11 @@
     "toDate": "28 Mar 2003, 0000",
     "type": "veigar.task.Event",
     "description": "project meet",
+    "done": true
+  },
+  {
+    "type": "veigar.task.Event",
+    "description": "swim",
     "done": false
   }
 ]

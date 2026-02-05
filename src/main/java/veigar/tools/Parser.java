@@ -28,7 +28,7 @@ public class Parser {
      * Enum for possible user inputs.
      * 1. Date and Time with slashes ex. 31/12/2023 2359.
      * 2. Date and Time with letters ex. 2 Feb 2023, 5:00PM.
-     * 3. Day and Time -> Next Occurrence of Day at set time ex. Mon 4pm.
+     * 3. Day and Time -> Next Occurrence of Day at set time ex. Monday 4PM.
      * 4. Date with slashes -> Date and time set to 0000 ex.31/12/2023.
      * 5. Day -> Next Occurrence of Day at current time.ex.Monday.
      *
@@ -36,7 +36,7 @@ public class Parser {
     private enum DateFormat {
         DATETIME_SLASH("d/M/uuuu HHmm"),
         DATETIME_TEXT("d MMM uuuu, h:mma"),
-        DAY_TIME("E ha"),
+        DAY_TIME("EEEE ha"),
         DATE_SLASH("d/M/uuuu"),
         DAY_ONLY("EEEE");
 
