@@ -25,12 +25,12 @@ public class Parser {
             DateTimeFormatter.ofPattern("d MMM uuuu, HHmm");
 
     /**
-     * Enum for possible user inputs.
+     * Enum for possible user date inputs.
      * 1. Date and Time with slashes ex. 31/12/2023 2359.
      * 2. Date and Time with letters ex. 2 Feb 2023, 5:00PM.
      * 3. Day and Time -> Next Occurrence of Day at set time ex. Monday 4PM.
      * 4. Date with slashes -> Date and time set to 0000 ex.31/12/2023.
-     * 5. Day -> Next Occurrence of Day at current time.ex.Monday.
+     * 5. Day -> Next Occurrence of Day at current time.ex. Monday.
      *
      */
     private enum DateFormat {

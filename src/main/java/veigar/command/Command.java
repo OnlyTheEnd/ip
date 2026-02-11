@@ -107,7 +107,7 @@ public class Command {
             @Override
             CommandResult execute(Ui ui, TaskList taskList, String args) throws VeigarException {
                 String queryDate = args.trim(); // e.g. "1 Feb 2026"
-                String showString = taskList.showTasks(queryDate);
+                String showString = taskList.matchTasks(queryDate);
                 return new CommandResult(showString);
             }
         },

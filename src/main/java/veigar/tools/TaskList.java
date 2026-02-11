@@ -7,7 +7,6 @@ import veigar.task.Event;
 import veigar.task.Task;
 
 
-
 /**
  * Operates on taskList.
  */
@@ -23,13 +22,8 @@ public class TaskList {
         return taskList.size();
     }
 
-    public Task getTask(int i) throws IndexOutOfBoundsException {
-        try {
-            return taskList.get(i);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Index out of bounds");
-        }
-        return taskList.get(0);
+    public Task getTask(int i) {
+        return taskList.get(i);
     }
 
     /**
@@ -38,7 +32,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         taskList.add(task);
-        afterChange();
+        saveChanges();
     }
 
     /**
@@ -47,7 +41,7 @@ public class TaskList {
      */
     public void removeTask(int i) {
         taskList.remove(i);
-        afterChange();
+        saveChanges();
     }
 
     /**
@@ -56,7 +50,7 @@ public class TaskList {
      */
     public void markUndone(int i) {
         taskList.get(i).markUndone();
-        afterChange();
+        saveChanges();
     }
 
     /**
@@ -65,7 +59,7 @@ public class TaskList {
      */
     public void markDone(int i) {
         taskList.get(i).markDone();
-        afterChange();
+        saveChanges();
     }
     /**
      * Displays the entire taskList as a String, each line representing one Task with a space after each one.
@@ -88,8 +82,8 @@ public class TaskList {
      * Displays the specified tasks which matches the queryDate date component.
      * @param queryDate Date of Task to be matched.
      */
-    public String showTasks(String queryDate) {
-        boolean found = false;
+    public String matchTasks(String queryDate) {
+        boolean isFound = false;
         for (int i = 0; i < taskList.size(); i++) {
             Task t = taskList.get(i);
             String taskDate;
@@ -102,13 +96,13 @@ public class TaskList {
             }
             if (taskDate.equals(queryDate)) {
                 stringBuilder.append((i + 1)).append(". ").append(t).append("\n");
-                found = true;
+                isFound = true;
             }
         }
         String showString = stringBuilder.toString();
         stringBuilder.setLength(0);
-        if (!found) {
-            showString = "tasks found on " + queryDate;
+        if (!isFound) {
+            showString = "tasks isFound on " + queryDate;
         }
         return showString;
     }
@@ -117,26 +111,26 @@ public class TaskList {
      * @param queryString String of Task Description to be matched.
      */
     public String findTasks(String queryString) {
-        boolean found = false;
+        boolean isFound = false;
         for (int i = 0; i < taskList.size(); i++) {
             String taskDescription = taskList.get(i).getDescription();
             if (taskDescription.contains(queryString)) {
                 stringBuilder.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
-                found = true;
+                isFound = true;
             }
         }
         String findString = stringBuilder.toString();
-        stringBuilder.setLength(0);
-        if (!found) {
-            findString = "No tasks found matching " + queryString;
+        if (!isFound) {
+            findString = "No tasks isFound matching " + queryString;
         }
+        stringBuilder.setLength(0);
         return findString;
     }
 
     /**
      * Saves after any updates to taskList.
      */
-    private void afterChange() {
+    private void saveChanges() {
         Storage.save(taskList);
     }
 }

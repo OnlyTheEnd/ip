@@ -7,17 +7,17 @@ public abstract class Task {
 
     protected String type;
     protected String description;
-    protected boolean done;
+    protected boolean isDone;
 
     /**
-     * Creates a task that is not done.
+     * Creates a task that is not isDone.
      * @param description A task the user has to do.
      * @param type Type of Task
      */
     public Task(String description, String type) {
         this.type = type;
         this.description = description;
-        this.done = false;
+        this.isDone = false;
     }
 
     public String getDescription() {
@@ -25,10 +25,10 @@ public abstract class Task {
     }
 
     public void markDone() {
-        this.done = true;
+        this.isDone = true;
     }
     public void markUndone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -37,7 +37,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        if (this.done) {
+        if (this.isDone) {
             return "[X]" + this.description;
         } else {
             return "[ ]" + this.description;
