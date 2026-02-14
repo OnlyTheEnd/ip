@@ -1,19 +1,16 @@
+package veigar;
+
 import veigar.command.Command;
-
-import java.util.Scanner;
-
 import veigar.command.CommandResult;
 import veigar.exception.VeigarException;
 import veigar.tools.Storage;
 import veigar.tools.TaskList;
-import veigar.tools.Ui;
 
 
 /**
- * Main class.
+ * veigar.Main class.
  */
 public class Veigar {
-    private Ui ui;
     private TaskList tasks;
 
     /**
@@ -21,7 +18,6 @@ public class Veigar {
      * @param filePath Destination path file to load the Task List
      */
     public Veigar(String filePath) {
-        ui = new Ui();
         Storage.setPath(filePath);
         tasks = new TaskList(Storage.load());
 
@@ -40,7 +36,7 @@ public class Veigar {
             String commandArgs = cmd.length > 1 ? cmd[1] : "";
             Command c = new Command(Command.Cmd.valueOf(cmd[0].toUpperCase()));
             //for reply
-            return c.execute(ui, tasks, commandArgs);
+            return c.execute(tasks, commandArgs);
         } catch (IllegalArgumentException | VeigarException e) {
             System.out.println("Whoops wrong command, Suffering awaits!");
         }
