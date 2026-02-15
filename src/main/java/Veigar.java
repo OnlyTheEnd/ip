@@ -25,7 +25,7 @@ public class Veigar {
     }
 
     /**
-     * While not exiting, parses the users commands into commands and further arguments.
+     * Parses the users commands into commands and further arguments.
      * Executes the specified command if found, else warns the user about it.
      */
     public CommandResult getResponse(String input) {

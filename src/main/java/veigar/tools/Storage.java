@@ -59,7 +59,7 @@ public class Storage {
 
     /**
      * Save a generic list of tasks to JSON.
-     * @param tasks Saves the taskList to a JSON file specified under filePath.
+     * @param tasks taskList to be saved.
      */
     public static void save(List<Task> tasks) {
         try {
