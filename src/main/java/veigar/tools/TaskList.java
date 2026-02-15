@@ -1,7 +1,6 @@
 package veigar.tools;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import veigar.exception.VeigarException;
@@ -34,7 +33,7 @@ public class TaskList {
      * Adds Task T into the taskList.
      * @param task A Task.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws VeigarException {
         assert task != null;
         taskList.add(task);
         saveChanges();
@@ -44,7 +43,7 @@ public class TaskList {
      * Removes a Task from taskList at index i.
      * @param i Index of removed task.
      */
-    public void removeTask(int i) {
+    public void removeTask(int i) throws VeigarException {
         taskList.remove(i);
         saveChanges();
     }
@@ -53,7 +52,7 @@ public class TaskList {
      * Unmarks a Task from taskList at index i
      * @param i Index of task to be unmarked.
      */
-    public void markUndone(int i) {
+    public void markUndone(int i) throws VeigarException {
         taskList.get(i).markUndone();
         saveChanges();
     }
@@ -62,7 +61,7 @@ public class TaskList {
      * Marks a Task from taskList at index i
      * @param i Index of task to be marked.
      */
-    public void markDone(int i) {
+    public void markDone(int i) throws VeigarException {
         taskList.get(i).markDone();
         saveChanges();
     }
@@ -137,7 +136,7 @@ public class TaskList {
     /**
      * Saves after any updates to taskList.
      */
-    private void saveChanges() {
+    private void saveChanges() throws VeigarException {
         Storage.save(taskList);
     }
 }

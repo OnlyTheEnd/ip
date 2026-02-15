@@ -31,11 +31,12 @@ public class Veigar {
         try {
             String[] cmd = input.split(" ", 2);
             String commandArgs = cmd.length > 1 ? cmd[1] : "";
-            Command c = new Command(Command.Cmd.valueOf(cmd[0].toUpperCase()));
             //for reply
-            return c.execute(tasks, commandArgs);
-        } catch (IllegalArgumentException | VeigarException e) {
-            return new CommandResult("Error! Error!" + e.getMessage());
+            return Command.Cmd.valueOf(cmd[0].toUpperCase()).execute(tasks, commandArgs);
+        } catch (IllegalArgumentException e) {
+            return new CommandResult("Error! Error! Your commands are wrong");
+        } catch (VeigarException v) {
+            return new CommandResult("Error! Error!" + v.getMessage());
         }
     }
 

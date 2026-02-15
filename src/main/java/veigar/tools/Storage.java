@@ -3,14 +3,19 @@ package veigar.tools;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializer;
 
+import veigar.exception.VeigarException;
 import veigar.task.DeadlineTask;
 import veigar.task.EventTask;
 import veigar.task.Task;
@@ -31,6 +36,12 @@ public class Storage {
      * Instantiates GsonBuilder to help build save file as a .json file.
      */
     private static final Gson GSON = new GsonBuilder()
+            .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (
+                    src, typeOfSrc, context)
+                            -> new JsonPrimitive(src.format(Task.OUTPUT_FORMAT)))
+            .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (
+                    json, typeOfT, context)
+                            -> LocalDateTime.parse(json.getAsString(), Task.OUTPUT_FORMAT))
             .setPrettyPrinting()
             .create();
 
@@ -61,13 +72,14 @@ public class Storage {
      * Save a generic list of tasks to JSON.
      * @param tasks taskList to be saved.
      */
-    public static void save(List<Task> tasks) {
+    public static void save(List<Task> tasks) throws VeigarException {
         try {
             ensureStorageExists();
             String json = GSON.toJson(tasks);
             Files.writeString(filePath, json);
         } catch (IOException e) {
-            System.out.println("Failed to save tasks: " + e.getMessage());
+            throw new VeigarException("Failed to save tasks");
+
         }
     }
 
@@ -97,9 +109,9 @@ public class Storage {
                     tasks.add(task);
                 }
             }
-            
         } catch (Exception e) {
-            System.out.println("Failed to load tasks: " + e.getMessage());
+            System.out.println("Error");
+            //throw new VeigarException("Failed to load tasks");
         }
         return tasks;
     }

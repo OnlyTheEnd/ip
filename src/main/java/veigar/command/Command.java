@@ -12,11 +12,6 @@ import veigar.tools.TaskList;
  * Represents Commands by the user to be executed.
  */
 public class Command {
-    private final Cmd command;
-    public Command(Cmd command) {
-        this.command = command;
-    }
-
     /**
      * enums for all the possible commands.
      */
@@ -24,7 +19,7 @@ public class Command {
 
         BYE {
             @Override
-            CommandResult execute(TaskList taskList, String args) {
+            public CommandResult execute(TaskList taskList, String args) {
                 String exitString = "I shall return, better and BIGGER!!!";
                 return new CommandResult(exitString, false, true);
             }
@@ -32,7 +27,7 @@ public class Command {
 
         LIST {
             @Override
-            CommandResult execute(TaskList taskList, String args) {
+            public CommandResult execute(TaskList taskList, String args) {
                 String listString = "Suffering awaits!\n" + taskList.listTasks();
                 return new CommandResult(listString);
             }
@@ -40,7 +35,7 @@ public class Command {
 
         MARK {
             @Override
-            CommandResult execute(TaskList taskList, String args) throws VeigarException {
+            public CommandResult execute(TaskList taskList, String args) throws VeigarException {
                 int n = Parser.parseIndex(args, taskList);
                 taskList.markDone(n);
                 String markString = "Your commands tire me.\n" + taskList.getTask(n).toString();
@@ -50,7 +45,7 @@ public class Command {
 
         UNMARK {
             @Override
-            CommandResult execute(TaskList taskList, String args) throws VeigarException {
+            public CommandResult execute(TaskList taskList, String args) throws VeigarException {
                 int n = Parser.parseIndex(args, taskList);
                 taskList.markUndone(n);
                 String unmarkString = "No, no, NO! THIS ISN'T OVER!!!\n" + taskList.getTask(n).toString();
@@ -60,7 +55,7 @@ public class Command {
 
         TODO {
             @Override
-            CommandResult execute(TaskList taskList, String args) throws VeigarException {
+            public CommandResult execute(TaskList taskList, String args) throws VeigarException {
                 if (args.trim().isEmpty()) {
                     throw new VeigarException("You have nothing in your args, put a date");
                 }
@@ -71,7 +66,7 @@ public class Command {
 
         EVENT {
             @Override
-            CommandResult execute(TaskList taskList, String args) throws VeigarException {
+            public CommandResult execute(TaskList taskList, String args) throws VeigarException {
                 String[] parts = args.split(" /from | /to ");
                 if (parts.length != 3) {
                     throw new VeigarException("Invalid number of args, use /from date /to date");
@@ -83,7 +78,7 @@ public class Command {
 
         DEADLINE {
             @Override
-            CommandResult execute(TaskList taskList, String args) throws VeigarException {
+            public CommandResult execute(TaskList taskList, String args) throws VeigarException {
                 String[] parts = args.split("/by");
                 if (parts.length != 2) {
                     throw new VeigarException("Invalid number of args, use /by date");
@@ -95,7 +90,7 @@ public class Command {
 
         DELETE {
             @Override
-            CommandResult execute(TaskList taskList, String args) throws VeigarException {
+            public CommandResult execute(TaskList taskList, String args) throws VeigarException {
                 int n = Parser.parseIndex(args, taskList);
                 String deleteString = "I have deleted this task:\n" + taskList.getTask(n);
                 taskList.removeTask(n);
@@ -104,7 +99,7 @@ public class Command {
         },
         SHOW {
             @Override
-            CommandResult execute(TaskList taskList, String args) throws VeigarException {
+            public CommandResult execute(TaskList taskList, String args) throws VeigarException {
                 String queryDate = args.trim(); // e.g. "1 Feb 2026"
                 String showString = taskList.matchTasks(queryDate);
                 return new CommandResult(showString);
@@ -112,24 +107,14 @@ public class Command {
         },
         FIND {
             @Override
-            CommandResult execute(TaskList taskList, String args) throws VeigarException {
+            public CommandResult execute(TaskList taskList, String args) throws VeigarException {
                 String queryString = args.trim();
                 String findString = taskList.findTasks(queryString);
                 return new CommandResult(findString);
             }
         };
-        abstract CommandResult execute(TaskList taskList, String args) throws VeigarException;
-    }
 
-    /**
-     * Executes the command.
-     * @param tasks TaskList.
-     * @param args args for enums.
-     * @throws VeigarException on error.
-     */
-    public CommandResult execute(TaskList tasks, String args) throws VeigarException {
-        return command.execute(tasks, args);
+        public abstract CommandResult execute(TaskList taskList, String args) throws VeigarException;
     }
-
 }
 

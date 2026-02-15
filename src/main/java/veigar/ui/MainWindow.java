@@ -1,5 +1,6 @@
 package veigar.ui;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import veigar.Veigar;
 import veigar.command.CommandResult;
 
@@ -29,9 +31,13 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image veigarImage = new Image(this.getClass().getResourceAsStream("/images/Veigar.png"));
 
+    /**
+     * Initiallizes the scroll pane and then sets image background.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
     }
 
     /** Injects the veigar.Veigar instance */
@@ -51,11 +57,13 @@ public class MainWindow extends AnchorPane {
         String response = cr.getFeedbackToUser();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, veigarImage)
+                DialogBox.getVeigarDialog(response, veigarImage)
         );
         userInput.clear();
         if (cr.isExit()) {
-            Platform.exit();
+            PauseTransition delay = new PauseTransition(Duration.seconds(3)); // change time here
+            delay.setOnFinished(e -> Platform.exit());
+            delay.play();
         }
     }
 }
