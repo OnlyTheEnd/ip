@@ -72,6 +72,7 @@ public class Parser {
      * @throws NullPointerException if String pattern.
      */
     public static String parseDateTime(String inputString) throws NullPointerException {
+        assert inputString != null;
         try {
             LocalDateTime date = LocalDateTime.now();
             TemporalAccessor parsed = tryParse(inputString);
@@ -104,6 +105,7 @@ public class Parser {
      * @throws VeigarException Number cannot be read or out of bounds
      */
     public static int parseIndex(String s, TaskList taskList) throws VeigarException {
+        assert s != null;
         try {
             int n = Integer.parseInt(s) - 1;
             if (n < 0 || n >= taskList.getListSize()) {

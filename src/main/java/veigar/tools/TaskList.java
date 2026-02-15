@@ -19,6 +19,7 @@ public class TaskList {
     }
 
     public int getListSize() {
+        assert taskList != null;
         return taskList.size();
     }
 
@@ -31,6 +32,7 @@ public class TaskList {
      * @param task A Task.
      */
     public void addTask(Task task) {
+        assert task != null;
         taskList.add(task);
         saveChanges();
     }
@@ -71,7 +73,7 @@ public class TaskList {
                 stringBuilder.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
             }
         } else {
-            stringBuilder.append("DONT DEAD OPEN INSIDE LIST IS 0");
+            stringBuilder.append("LIST IS 0 SIZE");
         }
         String listString = stringBuilder.toString();
         stringBuilder.setLength(0);
@@ -85,24 +87,25 @@ public class TaskList {
     public String matchTasks(String queryDate) {
         boolean isFound = false;
         for (int i = 0; i < taskList.size(); i++) {
-            Task t = taskList.get(i);
+            Task task = taskList.get(i);
+            assert task != null;
             String taskDate;
-            if (t instanceof Deadline d) {
+            if (task instanceof Deadline d) {
                 taskDate = d.getBy().split(",")[0].trim();
-            } else if (t instanceof Event e) {
+            } else if (task instanceof Event e) {
                 taskDate = e.getToDate().split(",")[0].trim();
             } else {
                 continue; // skip other task types
             }
             if (taskDate.equals(queryDate)) {
-                stringBuilder.append((i + 1)).append(". ").append(t).append("\n");
+                stringBuilder.append((i + 1)).append(". ").append(task).append("\n");
                 isFound = true;
             }
         }
         String showString = stringBuilder.toString();
         stringBuilder.setLength(0);
         if (!isFound) {
-            showString = "tasks isFound on " + queryDate;
+            showString = "No tasks found on " + queryDate;
         }
         return showString;
     }

@@ -1,3 +1,5 @@
+package veigar.ui;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -6,9 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import veigar.Veigar;
 import veigar.command.CommandResult;
-
-import java.util.TimerTask;
 
 /**
  * Controller for the main GUI.
@@ -33,13 +34,14 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Veigar instance */
+    /** Injects the veigar.Veigar instance */
     public void setVeigar(Veigar v) {
         veigar = v;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Veigar's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing veigar.
+     * Veigar's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML

@@ -1,12 +1,13 @@
 package veigar.tools;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.List;
+import java.util.ArrayList;
+
 import veigar.task.Task;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StorageTest {
     //Test empty file returns empty list
