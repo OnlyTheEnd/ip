@@ -15,6 +15,7 @@ public abstract class Task {
      * @param type Type of Task
      */
     public Task(String description, String type) {
+        assert description != null;
         this.type = type;
         this.description = description;
         this.isDone = false;

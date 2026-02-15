@@ -15,6 +15,7 @@ public class Deadline extends Task {
     public Deadline(String description, String byString) {
         super(description, "veigar.task.Deadline");
         this.by = Parser.parseDateTime(byString.trim());
+        assert this.by != null;
     }
 
     public String getBy() {
