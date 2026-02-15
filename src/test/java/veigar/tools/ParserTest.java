@@ -3,6 +3,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import veigar.exception.VeigarException;
+
 
 public class ParserTest {
     /**
@@ -15,18 +17,18 @@ public class ParserTest {
      *
      */
     @Test
-    public void parseDateTimeTest3() {
+    public void parseDateTimeTest1() throws VeigarException {
         String output = Parser.parseDateTime("Monday 4PM");
         assertEquals(",1600", output);
     }
     @Test
-    public void parseDateTimeTest4() {
+    public void parseDateTimeTest2() throws VeigarException {
         String output = Parser.parseDateTime("27/3/2003");
         assertEquals("27 Mar 2003, 0000", output);
     }
 
     @Test
-    public void parseDateTimeTest2() {
+    public void parseDateTimeTest3() throws VeigarException {
         String output = Parser.parseDateTime("2 Feb 2023, 5:00PM");
         assertEquals("2 Feb 2023, 1700", output);
     }
