@@ -35,9 +35,8 @@ public class Veigar {
             //for reply
             return c.execute(tasks, commandArgs);
         } catch (IllegalArgumentException | VeigarException e) {
-            System.out.println("Whoops wrong command, Suffering awaits!");
+            return new CommandResult("Error! Error!" + e.getMessage());
         }
-        return new CommandResult("Error Error", false, true);
     }
 
     public static void main(String[] args) {

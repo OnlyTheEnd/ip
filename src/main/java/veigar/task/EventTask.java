@@ -17,10 +17,10 @@ public class EventTask extends Task {
      */
     public EventTask(String description, String fromDate, String toDate) throws VeigarException {
         super(description, "veigar.task.Event");
+        assert fromDate != null;
+        assert toDate != null;
         this.fromDate = Parser.parseDateTime(fromDate.trim());
         this.toDate = Parser.parseDateTime(toDate.trim());
-        assert this.fromDate != null;
-        assert this.toDate != null;
     }
     public String getToDate() {
         return toDate;

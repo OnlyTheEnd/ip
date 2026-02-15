@@ -62,7 +62,7 @@ public class Command {
             @Override
             CommandResult execute(TaskList taskList, String args) throws VeigarException {
                 if (args.trim().isEmpty()) {
-                    return new CommandResult("You have nothing in your args");
+                    throw new VeigarException("You have nothing in your args, put a date");
                 }
                 taskList.addTask(new ToDoTask(args));
                 return new CommandResult("Now you have " + taskList.getListSize() + " tasks in the list");
@@ -74,7 +74,7 @@ public class Command {
             CommandResult execute(TaskList taskList, String args) throws VeigarException {
                 String[] parts = args.split(" /from | /to ");
                 if (parts.length != 3) {
-                    return new CommandResult("Invalid number of args");
+                    throw new VeigarException("Invalid number of args, use /from date /to date");
                 }
                 taskList.addTask(new EventTask(parts[0], parts[1], parts[2]));
                 return new CommandResult("Now you have " + taskList.getListSize() + " tasks in the list");
@@ -86,7 +86,7 @@ public class Command {
             CommandResult execute(TaskList taskList, String args) throws VeigarException {
                 String[] parts = args.split("/by");
                 if (parts.length != 2) {
-                    return new CommandResult("Invalid number of args");
+                    throw new VeigarException("Invalid number of args, use /by date");
                 }
                 taskList.addTask(new DeadlineTask(parts[0], parts[1]));
                 return new CommandResult("Now you have " + taskList.getListSize() + " tasks in the list");

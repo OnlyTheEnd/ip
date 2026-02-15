@@ -91,7 +91,7 @@ public class Parser {
             }
             return date.format(OUTPUT_FORMAT);
         } catch (NullPointerException d) {
-            throw new VeigarException("Your date is WRONG");
+            throw new VeigarException("Your date is WRONG format");
         }
     }
 
@@ -107,7 +107,7 @@ public class Parser {
         try {
             int n = Integer.parseInt(s) - 1;
             if (n < 0 || n >= taskList.getListSize()) {
-                throw new VeigarException("Your commands are wrong");
+                throw new VeigarException("Your index is wrong, Choose between 1 and " + taskList.getListSize());
             }
             return n;
         } catch (NumberFormatException e) {
