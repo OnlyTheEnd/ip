@@ -1,0 +1,57 @@
+/* Basic styling for Veigar app */
+
+.label {
+    /* Standard properties for validators */
+    font-size: 14px;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.35);
+    padding: 8px 12px;
+    border-radius: 8px;
+
+    /* JavaFX properties */
+    -fx-font-size: 14px;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: rgba(0,0,0,0.35);
+    -fx-padding: 8px 12px;
+    -fx-background-radius: 8px;
+}
+
+/* Style the user input and send button */
+.text-field {
+    background-color: rgba(255,255,255,0.9);
+    border-radius: 6px;
+    -fx-background-color: rgba(255,255,255,0.9);
+    -fx-background-radius: 6px;
+}
+
+.button {
+    background-color: #2b2b2b;
+    color: white;
+    border-radius: 6px;
+    -fx-background-color: #2b2b2b;
+    -fx-text-fill: white;
+    -fx-background-radius: 6px;
+}
+
+/* DialogBox-specific tweaks: target by fx:id is not available in CSS, but targeting ImageView and Label works */
+.image-view {
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 6, 0.0 , 0 , 2 );
+    -fx-background-radius: 50px;
+}
+
+/* Make the scroll pane and its viewport transparent so the background image (ImageView) shows through */
+.scroll-pane {
+    background-color: transparent;
+    -fx-background-color: transparent; /* correct JavaFX property */
+}
+.scroll-pane .viewport {
+    background-color: transparent;
+    -fx-background-color: transparent;
+}
+
+/* Dialog container should be transparent so background shows through */
+#dialogContainer, .vbox {
+    background-color: transparent;
+    -fx-background-color: transparent;
+}
+

@@ -2,7 +2,7 @@
   {
     "type": "veigar.task.ToDo",
     "description": "borrow book",
-    "isDone": false
+    "isDone": true
   },
   {
     "fromDate": "27 Mar 2003, 0000",
