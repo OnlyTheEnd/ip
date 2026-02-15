@@ -24,14 +24,11 @@ public class Veigar {
     }
 
     /**
-     * While not exiting, parses the users commands into commands and further arguments.
+     * Parses the users commands into commands and further arguments.
      * Executes the specified command if found, else warns the user about it.
      */
     public CommandResult getResponse(String input) {
-        //System.out.println("I am VeigarBot \nHEHEHEHA");
         try {
-            //Scanner scanner = new Scanner(System.in);
-            //String s = scanner.nextLine();
             String[] cmd = input.split(" ", 2);
             String commandArgs = cmd.length > 1 ? cmd[1] : "";
             Command c = new Command(Command.Cmd.valueOf(cmd[0].toUpperCase()));

@@ -3,9 +3,9 @@ package veigar.task;
 /**
  * ToDos are tasks with no specified date or time.
  */
-public class ToDo extends Task {
+public class ToDoTask extends Task {
 
-    public ToDo(String description) {
+    public ToDoTask(String description) {
         super(description, "veigar.task.ToDo");
     }
 

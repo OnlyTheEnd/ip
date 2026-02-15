@@ -69,10 +69,9 @@ public class Parser {
      * Compares between the DateFormat enums and return most specific match.
      * @param inputString User input of date as a String.
      * @return Date and time in the specified OUTPUT_FORMAT.
-     * @throws NullPointerException if String pattern.
+     * @throws VeigarException if String pattern does not match.
      */
-    public static String parseDateTime(String inputString) throws NullPointerException {
-        assert inputString != null;
+    public static String parseDateTime(String inputString) throws VeigarException {
         try {
             LocalDateTime date = LocalDateTime.now();
             TemporalAccessor parsed = tryParse(inputString);
@@ -92,9 +91,8 @@ public class Parser {
             }
             return date.format(OUTPUT_FORMAT);
         } catch (NullPointerException d) {
-            System.out.println("Wrong date format");
+            throw new VeigarException("Your date is WRONG");
         }
-        return null;
     }
 
     /**

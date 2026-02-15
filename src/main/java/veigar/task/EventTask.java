@@ -1,10 +1,11 @@
 package veigar.task;
+import veigar.exception.VeigarException;
 import veigar.tools.Parser;
 
 /**
  * Events are tasks that happens within a set time period.
  */
-public class Event extends Task {
+public class EventTask extends Task {
     protected String fromDate;
     protected String toDate;
 
@@ -14,7 +15,7 @@ public class Event extends Task {
      * @param fromDate Event start date and time.
      * @param toDate Event end date and time.
      */
-    public Event(String description, String fromDate, String toDate) {
+    public EventTask(String description, String fromDate, String toDate) throws VeigarException {
         super(description, "veigar.task.Event");
         this.fromDate = Parser.parseDateTime(fromDate.trim());
         this.toDate = Parser.parseDateTime(toDate.trim());

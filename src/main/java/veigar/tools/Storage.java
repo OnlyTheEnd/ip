@@ -11,10 +11,10 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import veigar.task.Deadline;
-import veigar.task.Event;
+import veigar.task.DeadlineTask;
+import veigar.task.EventTask;
 import veigar.task.Task;
-import veigar.task.ToDo;
+import veigar.task.ToDoTask;
 
 
 /**
@@ -59,7 +59,7 @@ public class Storage {
 
     /**
      * Save a generic list of tasks to JSON.
-     * @param tasks Saves the taskList to a JSON file specified under filePath.
+     * @param tasks taskList to be saved.
      */
     public static void save(List<Task> tasks) {
         try {
@@ -87,9 +87,9 @@ public class Storage {
                 String type = obj.get("type").getAsString();
 
                 Task task = switch (type) {
-                case "veigar.task.ToDo" -> GSON.fromJson(obj, ToDo.class);
-                case "veigar.task.Deadline" -> GSON.fromJson(obj, Deadline.class);
-                case "veigar.task.Event" -> GSON.fromJson(obj, Event.class);
+                case "veigar.task.ToDo" -> GSON.fromJson(obj, ToDoTask.class);
+                case "veigar.task.Deadline" -> GSON.fromJson(obj, DeadlineTask.class);
+                case "veigar.task.Event" -> GSON.fromJson(obj, EventTask.class);
                 default -> null;
                 };
 
