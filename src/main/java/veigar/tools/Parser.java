@@ -103,6 +103,7 @@ public class Parser {
      * @throws VeigarException Number cannot be read or out of bounds
      */
     public static int parseIndex(String s, TaskList taskList) throws VeigarException {
+        assert s != null;
         try {
             int n = Integer.parseInt(s) - 1;
             if (n < 0 || n >= taskList.getListSize()) {

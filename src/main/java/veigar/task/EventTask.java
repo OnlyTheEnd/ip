@@ -19,6 +19,8 @@ public class EventTask extends Task {
         super(description, "veigar.task.Event");
         this.fromDate = Parser.parseDateTime(fromDate.trim());
         this.toDate = Parser.parseDateTime(toDate.trim());
+        assert this.fromDate != null;
+        assert this.toDate != null;
     }
     public String getToDate() {
         return toDate;

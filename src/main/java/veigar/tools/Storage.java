@@ -67,7 +67,7 @@ public class Storage {
             String json = GSON.toJson(tasks);
             Files.writeString(filePath, json);
         } catch (IOException e) {
-            System.out.println("    Failed to save tasks: " + e.getMessage());
+            System.out.println("Failed to save tasks: " + e.getMessage());
         }
     }
 
@@ -97,7 +97,7 @@ public class Storage {
                     tasks.add(task);
                 }
             }
-
+            
         } catch (Exception e) {
             System.out.println("Failed to load tasks: " + e.getMessage());
         }
