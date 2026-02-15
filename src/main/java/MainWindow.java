@@ -8,7 +8,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import veigar.command.CommandResult;
 
-import java.util.TimerTask;
 
 /**
  * Controller for the main GUI.

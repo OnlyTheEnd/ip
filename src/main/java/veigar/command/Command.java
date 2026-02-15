@@ -1,8 +1,8 @@
 package veigar.command;
 import veigar.exception.VeigarException;
-import veigar.task.Deadline;
-import veigar.task.Event;
-import veigar.task.ToDo;
+import veigar.task.DeadlineTask;
+import veigar.task.EventTask;
+import veigar.task.ToDoTask;
 import veigar.tools.Parser;
 import veigar.tools.TaskList;
 import veigar.tools.Ui;
@@ -65,7 +65,7 @@ public class Command {
                 if (args.trim().isEmpty()) {
                     return new CommandResult("You have nothing in your args");
                 }
-                taskList.addTask(new ToDo(args));
+                taskList.addTask(new ToDoTask(args));
                 return new CommandResult("Now you have " + taskList.getListSize() + " tasks in the list");
             }
         },
@@ -77,7 +77,7 @@ public class Command {
                 if (parts.length != 3) {
                     return new CommandResult("Invalid number of args");
                 }
-                taskList.addTask(new Event(parts[0], parts[1], parts[2]));
+                taskList.addTask(new EventTask(parts[0], parts[1], parts[2]));
                 return new CommandResult("Now you have " + taskList.getListSize() + " tasks in the list");
             }
         },
@@ -89,7 +89,7 @@ public class Command {
                 if (parts.length != 2) {
                     return new CommandResult("Invalid number of args");
                 }
-                taskList.addTask(new Deadline(parts[0], parts[1]));
+                taskList.addTask(new DeadlineTask(parts[0], parts[1]));
                 return new CommandResult("Now you have " + taskList.getListSize() + " tasks in the list");
             }
         },

@@ -1,24 +1,25 @@
 package veigar.task;
+import veigar.exception.VeigarException;
 import veigar.tools.Parser;
 
 /**
  * Deadlines are tasks that need to be completed before by date.
  */
-public class Deadline extends Task {
-    protected String by;
+public class DeadlineTask extends Task {
+    protected String byDate;
 
     /**
      * Creates a deadline task with specified description and end by date and time.
      * @param description Deadline task to complete.
      * @param byString Date and time of the deadline.
      */
-    public Deadline(String description, String byString) {
+    public DeadlineTask(String description, String byString) throws VeigarException {
         super(description, "veigar.task.Deadline");
-        this.by = Parser.parseDateTime(byString.trim());
+        this.byDate = Parser.parseDateTime(byString.trim());
     }
 
     public String getBy() {
-        return by;
+        return byDate;
     }
 
     /**
@@ -27,6 +28,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "\n(by:" + this.by + ")";
+        return "[D]" + super.toString() + "\n(by:" + this.byDate + ")";
     }
 }

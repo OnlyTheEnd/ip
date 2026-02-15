@@ -1,7 +1,4 @@
 import veigar.command.Command;
-
-import java.util.Scanner;
-
 import veigar.command.CommandResult;
 import veigar.exception.VeigarException;
 import veigar.tools.Storage;
@@ -32,10 +29,7 @@ public class Veigar {
      * Executes the specified command if found, else warns the user about it.
      */
     public CommandResult getResponse(String input) {
-        //System.out.println("I am VeigarBot \nHEHEHEHA");
         try {
-            //Scanner scanner = new Scanner(System.in);
-            //String s = scanner.nextLine();
             String[] cmd = input.split(" ", 2);
             String commandArgs = cmd.length > 1 ? cmd[1] : "";
             Command c = new Command(Command.Cmd.valueOf(cmd[0].toUpperCase()));

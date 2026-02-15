@@ -2,8 +2,8 @@ package veigar.tools;
 
 import java.util.List;
 
-import veigar.task.Deadline;
-import veigar.task.Event;
+import veigar.task.DeadlineTask;
+import veigar.task.EventTask;
 import veigar.task.Task;
 
 
@@ -87,9 +87,9 @@ public class TaskList {
         for (int i = 0; i < taskList.size(); i++) {
             Task t = taskList.get(i);
             String taskDate;
-            if (t instanceof Deadline d) {
+            if (t instanceof DeadlineTask d) {
                 taskDate = d.getBy().split(",")[0].trim();
-            } else if (t instanceof Event e) {
+            } else if (t instanceof EventTask e) {
                 taskDate = e.getToDate().split(",")[0].trim();
             } else {
                 continue; // skip other task types
