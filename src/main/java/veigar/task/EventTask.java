@@ -1,13 +1,17 @@
 package veigar.task;
+import java.time.LocalDateTime;
+
 import veigar.exception.VeigarException;
 import veigar.tools.Parser;
+
+
 
 /**
  * Events are tasks that happens within a set time period.
  */
 public class EventTask extends Task {
-    protected String fromDate;
-    protected String toDate;
+    protected LocalDateTime fromDate;
+    protected LocalDateTime toDate;
 
     /**
      * Creates an event task with specified description, from date and time and to date and time.
@@ -22,11 +26,11 @@ public class EventTask extends Task {
         this.fromDate = Parser.parseDateTime(fromDate.trim());
         this.toDate = Parser.parseDateTime(toDate.trim());
     }
-    public String getToDate() {
+    public LocalDateTime getToDate() {
         return toDate;
     }
 
-    public String getFromDate() {
+    public LocalDateTime getFromDate() {
         return fromDate;
     }
 
@@ -36,6 +40,7 @@ public class EventTask extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "\n(from: " + this.fromDate + " to: " + this.toDate + ")";
+        return "[E]" + super.toString() + "\n(from: " + this.fromDate.format(OUTPUT_FORMAT)
+                + " to: " + this.toDate.format(OUTPUT_FORMAT) + ")";
     }
 }

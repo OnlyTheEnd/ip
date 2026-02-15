@@ -1,7 +1,10 @@
 package veigar.tools;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import veigar.exception.VeigarException;
 import veigar.task.DeadlineTask;
 import veigar.task.EventTask;
 import veigar.task.Task;
@@ -82,18 +85,19 @@ public class TaskList {
 
     /**
      * Displays the specified tasks which matches the queryDate date component.
-     * @param queryDate Date of Task to be matched.
+     * @param queryDateString Date of Task to be matched.
      */
-    public String matchTasks(String queryDate) {
+    public String matchTasks(String queryDateString) throws VeigarException {
         boolean isFound = false;
+        LocalDate queryDate = Parser.parseDateTime(queryDateString).toLocalDate();
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.get(i);
             assert task != null;
-            String taskDate;
+            LocalDate taskDate;
             if (task instanceof DeadlineTask d) {
-                taskDate = d.getBy().split(",")[0].trim();
+                taskDate = d.getBy().toLocalDate();
             } else if (task instanceof EventTask e) {
-                taskDate = e.getToDate().split(",")[0].trim();
+                taskDate = e.getToDate().toLocalDate();
             } else {
                 continue; // skip other task types
             }
@@ -124,7 +128,7 @@ public class TaskList {
         }
         String findString = stringBuilder.toString();
         if (!isFound) {
-            findString = "No tasks isFound matching " + queryString;
+            findString = "No tasks is found matching " + queryString;
         }
         stringBuilder.setLength(0);
         return findString;

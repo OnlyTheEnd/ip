@@ -1,11 +1,11 @@
 package veigar.tools;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.format.DateTimeFormatter;
+
 import org.junit.jupiter.api.Test;
 
 import veigar.exception.VeigarException;
-
-
 public class ParserTest {
     /**
      * Enum for possible user inputs.
@@ -16,20 +16,22 @@ public class ParserTest {
      * 5. Day -> Next Occurrence of Day at current time.ex.Monday.
      *
      */
+    protected static final DateTimeFormatter OUTPUT_FORMAT =
+            DateTimeFormatter.ofPattern("d MMM uuuu, HHmm");
     @Test
     public void parseDateTimeTest1() throws VeigarException {
-        String output = Parser.parseDateTime("Monday 4PM");
+        String output = Parser.parseDateTime("Monday 4PM").format(OUTPUT_FORMAT);
         assertEquals(",1600", output);
     }
     @Test
     public void parseDateTimeTest2() throws VeigarException {
-        String output = Parser.parseDateTime("27/3/2003");
+        String output = Parser.parseDateTime("27/3/2003").format(OUTPUT_FORMAT);
         assertEquals("27 Mar 2003, 0000", output);
     }
 
     @Test
     public void parseDateTimeTest3() throws VeigarException {
-        String output = Parser.parseDateTime("2 Feb 2023, 5:00PM");
+        String output = Parser.parseDateTime("2 Feb 2023, 5:00PM").format(OUTPUT_FORMAT);
         assertEquals("2 Feb 2023, 1700", output);
     }
 

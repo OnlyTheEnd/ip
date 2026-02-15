@@ -1,9 +1,16 @@
 package veigar.task;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * Tasks includes ToDo, Event and Deadline
  */
 public abstract class Task {
+    /**
+     * Standardises date and time output as for example 27 Mar 2003, 2200.
+     */
+    protected static final DateTimeFormatter OUTPUT_FORMAT =
+            DateTimeFormatter.ofPattern("d MMM uuuu, HHmm");
 
     protected String type;
     protected String description;

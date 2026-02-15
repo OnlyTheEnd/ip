@@ -17,13 +17,6 @@ import veigar.exception.VeigarException;
  * Responsible for Parsing and reading user input into the app.
  */
 public class Parser {
-
-    /**
-     * Standardises date and time output as for example 27 Mar 2003, 2200.
-     */
-    private static final DateTimeFormatter OUTPUT_FORMAT =
-            DateTimeFormatter.ofPattern("d MMM uuuu, HHmm");
-
     /**
      * Enum for possible user date inputs.
      * 1. Date and Time with slashes ex. 31/12/2023 2359.
@@ -68,10 +61,10 @@ public class Parser {
     /**
      * Compares between the DateFormat enums and return most specific match.
      * @param inputString User input of date as a String.
-     * @return Date and time in the specified OUTPUT_FORMAT.
+     * @return LocalDateTime.
      * @throws VeigarException if String pattern does not match.
      */
-    public static String parseDateTime(String inputString) throws VeigarException {
+    public static LocalDateTime parseDateTime(String inputString) throws VeigarException {
         try {
             LocalDateTime date = LocalDateTime.now();
             TemporalAccessor parsed = tryParse(inputString);
@@ -89,7 +82,7 @@ public class Parser {
                     date = LocalDateTime.of(date.toLocalDate(), LocalTime.from(parsed));
                 }
             }
-            return date.format(OUTPUT_FORMAT);
+            return date;
         } catch (NullPointerException d) {
             throw new VeigarException("Your date is WRONG format");
         }
