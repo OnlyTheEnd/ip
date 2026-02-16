@@ -34,3 +34,17 @@ Just asking the AI to generate the test cases based on one file
 
 #### Time saved
 Negligible
+
+### 3. Generating UserDocs
+
+#### What worked
+
+Just asking it to format it according to the stipulated format, and doing minor edits
+
+#### What didn't
+
+It worked
+
+#### Time saved
+
+An hour
