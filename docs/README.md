@@ -1,10 +1,5 @@
 # Veigar User Guide
 
-
-// Product screenshot goes here
-
-// Product intro goes here
-
 ## Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer. Mac users: Ensure you have the precise JDK version prescribed here.
