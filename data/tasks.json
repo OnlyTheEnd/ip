@@ -2,14 +2,14 @@
   {
     "type": "veigar.task.ToDo",
     "description": "borrow book",
-    "isDone": true
+    "isDone": false
   },
   {
     "fromDate": "27 Mar 2003, 0000",
     "toDate": "28 Mar 2003, 0000",
     "type": "veigar.task.Event",
     "description": "project meet",
-    "isDone": true
+    "isDone": false
   },
   {
     "byDate": "16 Feb 2026, 2035",

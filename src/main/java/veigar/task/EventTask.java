@@ -25,6 +25,10 @@ public class EventTask extends Task {
         assert toDate != null;
         this.fromDate = Parser.parseDateTime(fromDate.trim());
         this.toDate = Parser.parseDateTime(toDate.trim());
+        if (this.fromDate.isAfter(this.toDate)) {
+            throw new VeigarException("Date order is inverted");
+        }
+
     }
     public LocalDateTime getToDate() {
         return toDate;
