@@ -19,9 +19,8 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String description, String byString) throws VeigarException {
         super(description, "veigar.task.Deadline");
-        assert byDate != null;
         this.byDate = Parser.parseDateTime(byString.trim());
-
+        assert byDate != null;
     }
 
     public LocalDateTime getBy() {

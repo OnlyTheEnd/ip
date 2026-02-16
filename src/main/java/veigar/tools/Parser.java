@@ -66,7 +66,7 @@ public class Parser {
      */
     public static LocalDateTime parseDateTime(String inputString) throws VeigarException {
         try {
-            LocalDateTime date = LocalDateTime.now();
+            LocalDateTime date = LocalDateTime.now(); //default date is now
             TemporalAccessor parsed = tryParse(inputString);
             LocalDateTime now = LocalDateTime.now();
             if (parsed.isSupported(ChronoField.EPOCH_DAY)) {

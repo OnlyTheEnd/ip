@@ -1,0 +1,20 @@
+[
+  {
+    "type": "veigar.task.ToDo",
+    "description": "t1",
+    "isDone": false
+  },
+  {
+    "byDate": "27 Mar 2003, 0000",
+    "type": "veigar.task.Deadline",
+    "description": "d1",
+    "isDone": false
+  },
+  {
+    "fromDate": "27 Mar 2003, 1200",
+    "toDate": "27 Mar 2003, 1300",
+    "type": "veigar.task.Event",
+    "description": "e1",
+    "isDone": false
+  }
+]
