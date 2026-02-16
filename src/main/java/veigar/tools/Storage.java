@@ -29,9 +29,7 @@ public class Storage {
     //Default save path
     private static Path data = Path.of("data");
     private static Path filePath = data.resolve("base.json");
-
-
-
+    private static final List<Task> SAMPLE_DATA = getSampleData();
     /**
      * Instantiates GsonBuilder to help build save file as a .json file.
      */
@@ -59,12 +57,13 @@ public class Storage {
      * Checks if directory is there, else creates a new directory.
      * @throws IOException if directory not found
      */
-    private static void ensureStorageExists() throws IOException {
+    private static void ensureStorageExists() throws IOException, VeigarException {
         if (!Files.exists(data)) {
             Files.createDirectories(data);
         }
         if (!Files.exists(filePath)) {
             Files.writeString(filePath, "[]"); // empty JSON array
+            save(SAMPLE_DATA);
         }
     }
 
@@ -79,7 +78,6 @@ public class Storage {
             Files.writeString(filePath, json);
         } catch (IOException e) {
             throw new VeigarException("Failed to save tasks");
-
         }
     }
 
@@ -110,10 +108,24 @@ public class Storage {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Error");
-            //throw new VeigarException("Failed to load tasks");
+            System.out.println("Tasks cannot be loaded");
         }
         return tasks;
     }
 
+    /**
+     * Populates a sample task list on first startup.
+     * @return The populated task list, else an empty list on VeigarException.
+     */
+    private static List<Task> getSampleData() {
+        List<Task> tasks = new ArrayList<>();
+        try {
+            tasks.add(new ToDoTask("t1"));
+            tasks.add(new DeadlineTask("d1", "27/3/2003"));
+            tasks.add(new EventTask("e1", "27/3/2003 1200", "27/3/2003 1300"));
+            return tasks;
+        } catch (VeigarException e) {
+            return tasks;
+        }
+    }
 }
