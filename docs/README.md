@@ -3,8 +3,8 @@
 ## Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer. Mac users: Ensure you have the precise JDK version prescribed here.
-2. Download the latest `.jar` file from here.
-3. Copy the file to the folder you want to use as the home folder for your AddressBook.
+2. Download the latest `.jar` file from [here](https://github.com/OnlyTheEnd/ip/releases/tag/A-Release).
+3. Copy the file to the folder you want to use as the home folder for your TaskList.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar veigar.jar` command to run the application. 
 A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
 
@@ -42,7 +42,7 @@ End date cannot be earlier than from date.
 Format: `event DESCRIPTION /from START /to END`
 
 Examples:
-* `event Project meeting /from 2pm /to 4pm`
+* `event Project meeting /from 31/12/2023 1617 /to 31/12/2023 2359`
 * `event Conference /from 1 Feb 2026 /to 3 Feb 2026`
 
 ---
@@ -156,6 +156,14 @@ GSON google library for JSON serializing
 | Showing tasks by date | `show DATE` | `show 1 Feb 2026` |
 | Exiting the program | `bye` | `bye` |
 
+## Valid Date Formats
+
+
+1. Date and Time with slashes ex. 31/12/2023 2359.
+2. Date and Time with letters ex. 2 Feb 2023, 5:00PM.
+3. Day and Time -> Next Occurrence of Day at set time ex. Monday 4PM.
+4. Date with slashes -> Date and time set to 0000 ex.31/12/2023.
+5. Day -> Next Occurrence of Day at current time.ex. Monday.
 
 ## [AI guidelines](Ai.md)
 
