@@ -147,7 +147,7 @@ GSON google library for JSON serializing
 |--------|--------|----------|
 | Viewing all tasks | `list` | `list` |
 | Adding a todo task | `todo DESCRIPTION` | `todo Buy groceries` |
-| Adding an event task | `event DESCRIPTION /from START /to END` | `event Project meeting /from 2pm /to 4pm`<br>`event Conference /from 1 Feb 2026 /to 3 Feb 2026` |
+| Adding an event task | `event DESCRIPTION /from START /to END` | `event Project meeting /from 31/12/2023 1617 /to 31/12/2023 2359`<br>`event Conference /from 1 Feb 2026 /to 3 Feb 2026` |
 | Adding a deadline task | `deadline DESCRIPTION /by DATE` | `deadline Submit report /by Friday` |
 | Marking a task as done | `mark INDEX` | `mark 2` |
 | Unmarking a task | `unmark INDEX` | `unmark 2` |
