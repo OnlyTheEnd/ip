@@ -12,12 +12,6 @@
     "isDone": false
   },
   {
-    "byDate": "16 Feb 2026, 2035",
-    "type": "veigar.task.Deadline",
-    "description": "suck ass",
-    "isDone": false
-  },
-  {
     "type": "veigar.task.ToDo",
     "description": "read book",
     "isDone": false

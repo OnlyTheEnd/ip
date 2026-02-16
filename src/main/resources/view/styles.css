@@ -1,19 +1,32 @@
 /* Basic styling for Veigar app */
 
-.label {
-    /* Standard properties for validators */
-    font-size: 14px;
-    color: #ffffff;
-    background-color: rgba(0, 0, 0, 0.35);
-    padding: 8px 12px;
-    border-radius: 8px;
+/* Font options
+   Add one of these classes to your Scene root or main container to change the app font:
+     - font-sans   -> modern UI sans-serif (default)
+     - font-serif  -> classic serif
+     - font-mono   -> monospace (useful for code-like display)
+   Example (Java): scene.getRoot().getStyleClass().add("font-serif");
+*/
+.root {
+    font-family: "Georgia", "Times New Roman", "Times", serif;
+    -fx-font-family: "Georgia", "Times New Roman", "Times", serif;
+    font-size: 14px; /* default application font size */
+    -fx-font-size: 14px; /* default application font size */
+}
 
-    /* JavaFX properties */
-    -fx-font-size: 14px;
-    -fx-text-fill: #ffffff;
-    -fx-background-color: rgba(0,0,0,0.35);
-    -fx-padding: 8px 12px;
-    -fx-background-radius: 8px;
+.font-sans {
+    font-family: "Segoe UI", "Helvetica Neue", Arial;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial;
+}
+
+.font-serif {
+    font-family: "Georgia", "Times New Roman", "Times", serif;
+    -fx-font-family: "Georgia", "Times New Roman", "Times", serif;
+}
+
+.font-mono {
+    font-family: "Consolas", "Courier New", monospace;
+    -fx-font-family: "Consolas", "Courier New", monospace;
 }
 
 /* Style the user input and send button */
@@ -25,18 +38,12 @@
 }
 
 .button {
-    background-color: #2b2b2b;
-    color: white;
+    background-color: #6f1354;
+    color: black;
     border-radius: 6px;
-    -fx-background-color: #2b2b2b;
-    -fx-text-fill: white;
+    -fx-background-color: #6f1354;
+    -fx-text-fill: black;
     -fx-background-radius: 6px;
-}
-
-/* DialogBox-specific tweaks: target by fx:id is not available in CSS, but targeting ImageView and Label works */
-.image-view {
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 6, 0.0 , 0 , 2 );
-    -fx-background-radius: 50px;
 }
 
 /* Make the scroll pane and its viewport transparent so the background image (ImageView) shows through */
@@ -53,5 +60,51 @@
 #dialogContainer, .vbox {
     background-color: transparent;
     -fx-background-color: transparent;
+}
+
+/* Dialog box styling */
+/* We target the dialog label by its fx:id (#dialog) inside the dialog container
+   and provide distinct colors for user and Veigar (bot) messages. */
+.user-dialog #dialog {
+    background-color:#2b2b2b;
+    padding: 10px;
+    max-width: 280px;
+    font-size: 13px;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #7b61ff, #2bb0ff);
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-background-radius: 12px;
+    -fx-max-width: 280px;
+    -fx-font-size: 13px;
+    -fx-wrap-text: true;
+}
+
+.veigar-dialog #dialog {
+    background-color:#2b2b2b;
+    padding: 10px;
+    max-width: 280px;
+    font-size: 13px;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #2b2b2b, #4b4b6b);
+    -fx-text-fill: #f1f1f1;
+    -fx-padding: 10px;
+    -fx-background-radius: 12px;
+    -fx-max-width: 280px;
+    -fx-font-size: 13px;
+}
+
+/* Alignment helpers for the dialog HBox root (keeps consistency with flip()) */
+.user-dialog {
+    -fx-alignment: TOP_RIGHT;
+}
+
+.veigar-dialog {
+    -fx-alignment: TOP_LEFT;
+}
+
+/* Image styling for the avatar */
+#displayPicture {
+    padding: 4px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 6, 0.5, 0, 2);
+    -fx-padding: 4px;
 }
 
