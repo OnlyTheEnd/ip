@@ -57,7 +57,7 @@ public class Command {
             @Override
             public CommandResult execute(TaskList taskList, String args) throws VeigarException {
                 if (args.trim().isEmpty()) {
-                    throw new VeigarException("You have nothing in your args, put a date");
+                    throw new VeigarException("You have nothing in your args");
                 }
                 taskList.addTask(new ToDoTask(args));
                 return new CommandResult("Now you have " + taskList.getListSize() + " tasks in the list");

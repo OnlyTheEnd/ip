@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import veigar.ui.MainWindow;
@@ -30,6 +31,8 @@ public class Main extends Application {
             scene.getStylesheets().add(Main.class.getResource("/view/styles.css").toExternalForm());
             stage.setScene(scene);
             stage.setTitle("Veigar");
+            //Disable fullscreen
+            stage.setResizable(false);
             // Load application icon
             stage.getIcons().add(getImage("/images/icon.png"));
             fxmlLoader.<MainWindow>getController().setVeigar(veigar);

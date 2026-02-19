@@ -162,8 +162,9 @@ GSON google library for JSON serializing
 1. Date and Time with slashes ex. 31/12/2023 2359.
 2. Date and Time with letters ex. 2 Feb 2023, 5:00PM.
 3. Day and Time -> Next Occurrence of Day at set time ex. Monday 4PM.
-4. Date with slashes -> Date and time set to 0000 ex.31/12/2023.
-5. Day -> Next Occurrence of Day at current time.ex. Monday.
+4. Date with letters ex. 26 Feb 2026
+5. Date with slashes -> Date and time set to 0000 ex.31/12/2023.
+6. Day -> Next Occurrence of Day at current time.ex. Monday.
 
 ## [AI guidelines](Ai.md)
 

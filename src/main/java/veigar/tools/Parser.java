@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
@@ -22,20 +23,25 @@ public class Parser {
      * 1. Date and Time with slashes ex. 31/12/2023 2359.
      * 2. Date and Time with letters ex. 2 Feb 2023, 5:00PM.
      * 3. Day and Time -> Next Occurrence of Day at set time ex. Monday 4PM.
-     * 4. Date with slashes -> Date and time set to 0000 ex.31/12/2023.
-     * 5. Day -> Next Occurrence of Day at current time.ex. Monday.
+     * 4. Date with letters ex. 26 Feb 2026
+     * 5. Date with slashes -> Date and time set to 0000 ex.31/12/2023.
+     * 6. Day -> Next Occurrence of Day at current time.ex. Monday.
      *
      */
     private enum DateFormat {
         DATETIME_SLASH("d/M/uuuu HHmm"),
         DATETIME_TEXT("d MMM uuuu, h:mma"),
         DAY_TIME("EEEE ha"),
+        DATE("d MMM uuuu"),
         DATE_SLASH("d/M/uuuu"),
         DAY_ONLY("EEEE");
 
         private final DateTimeFormatter formatter;
         DateFormat(String pattern) {
-            this.formatter = DateTimeFormatter.ofPattern(pattern, Locale.ENGLISH);
+            this.formatter = new DateTimeFormatterBuilder()
+                                .parseCaseInsensitive()
+                                .appendPattern(pattern)
+                                .toFormatter(Locale.ENGLISH);
         }
         private DateTimeFormatter getFormatter() {
             return formatter;
